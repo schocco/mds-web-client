@@ -1,0 +1,59 @@
+{
+  "name": "muni difficulty scale - web client",
+  "version": "0.0.1",
+  "description": "web application which uses the REST api of the muni difficulty scale server application",
+  "keywords": [
+    "muni difficulty scale",
+    "frontend"
+  ],
+  "main": "index.html",
+  "scripts": {
+    "start": "gulp"
+  },
+  "author": "Rocco Schulz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sabarasaba/modern-backbone-starterkit.git"
+  },
+  "devDependencies": {
+    "babel-core": "^4.0.1",
+    "babel-loader": "^4.0.0",
+    "chai": "^2.1.1",
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-concat": "^2.5.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-livereload": "^3.7.0",
+    "gulp-load-plugins": "^0.8.0",
+    "gulp-size": "^1.2.0",
+    "gulp-stylus": "^2.0.0",
+    "gulp-less": "^3.0.0",
+    "gulp-uglifyjs": "^0.6.0",
+    "gulp-util": "^3.0.3",
+    "gulp-watch": "^4.1.1",
+    "proxy-middleware": "^0.11.1",
+    "gulp-webpack": "^1.2.0",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-mocha": "^0.1.10",
+    "karma-spec-reporter": "0.0.16",
+    "karma-webpack": "^1.5.0",
+    "mocha": "^2.2.1",
+    "webpack": "^1.5.3",
+    "url-loader": "^0.5.5",
+    "file-loader": "^0.8.1",
+    "css-loader": "^0.12.0",
+    "handlebars-loader": "^1.0.2",
+    "webpack-dev-middleware": "^1.0.11",
+    "po2json": "^0.4.1"
+  },
+  "dependencies": {
+    "backbone": "^1.1.2",
+    "backbone.marionette": "^2.4.1",
+    "jquery": "^1.11.3",
+    "lodash": "^3.5.0",
+    "font-awesome-webpack": "^0.0.3"
+  }
+}

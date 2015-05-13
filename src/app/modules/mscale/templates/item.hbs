@@ -1,0 +1,24 @@
+<div class="one-full">
+    <h5>M{{ id }}</h5>
+    <table>
+        <tr>
+            <th style="width:25%">Characteristics</th>
+            <th style="width:30%">Obstacles</th>
+            <th>Slope</th>
+            <th style="width:30%">Underground</th>
+        </tr>
+        <tr>
+            <td>{{ characteristics }}</td>
+            <td>{{ obstacles }}</td>
+            <td>
+                {{ slope }}
+                <br>
+                <canvas class="slope-{{ slopeNum }}"
+                     width="40px" height="40px" 
+                     title="a slope of exactly {{ slopeNum }} %">
+                </canvas>
+            </td>
+            <td>{{ underground }}</td>
+        </tr>
+    </table>
+</div>
