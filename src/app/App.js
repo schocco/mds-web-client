@@ -15,7 +15,14 @@ var RootView = require('./RootView.js');
 var Controller = require('./Controller.js');
 var HomeModule = require('./modules/home/module.js');
 var MscaleModule = require('./modules/mscale/module.js');
+var TrailModule = require('./modules/trails/module.js');
 
+// use effects to transition contents
+Marionette.Region.prototype.attachHtml = function(view){
+	this.$el.hide();
+	this.$el.html(view.el);
+	this.$el.fadeIn(200);
+};
 
 var App = Marionette.Application.extend({
 	initialize : function(options) {
@@ -33,6 +40,7 @@ var app = new App();
 
 app.module("Home", HomeModule);
 app.module("Mscale", MscaleModule);
+app.module("Trails", TrailModule);
 
 
 //start history as soon as app is initialized
