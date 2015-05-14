@@ -82,6 +82,7 @@ gulp.task('static', function (cb) {
 gulp.task('watch', function () {
     gulp.watch(src + 'less/**/*.less', ['styles']);
     gulp.watch(src + 'index.html', ['html']);
+    gulp.watch(src + 'app/**/*.hbs', ['scripts']);
     gulp.watch(src + 'app/**/*.js', ['scripts']);
 });
 
