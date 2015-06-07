@@ -1,4 +1,4 @@
-var BaseCollection = require('../../../models/BaseCollection');
+var BaseCollection = require('commons/models/BaseCollection');
 var Mscale = require('./Mscale');
 
 /**

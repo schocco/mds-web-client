@@ -1,4 +1,4 @@
-var BaseModel = require('../../../models/BaseModel');
+var BaseModel = require('commons/models/BaseModel');
 
 /**
  * An Mscale model.

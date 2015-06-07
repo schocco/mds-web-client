@@ -152,8 +152,7 @@ module.exports = Backbone.Collection.extend({
 	 */
 	urlToDict : function(uri) {
 		queryParams = uri.substr(uri.lastIndexOf("?") + 1);
-		var dict = JSON.parse('{"'	+ queryParams.replace(/&/g, '","').replace(/=/g, '":"')	+ '"}');
-		return dict;
+		return JSON.parse('{"'	+ queryParams.replace(/&/g, '","').replace(/=/g, '":"')	+ '"}');
 	},
 
 	clearSettings : function() {

@@ -13,9 +13,9 @@ if (window.__agent) {
 var Router = require('./Router.js');
 var RootView = require('./RootView.js');
 var Controller = require('./Controller.js');
-var HomeModule = require('./modules/home/module.js');
-var MscaleModule = require('./modules/mscale/module.js');
-var TrailModule = require('./modules/trails/module.js');
+var HomeModule = require('home/module.js');
+var MscaleModule = require('mscale/module.js');
+var TrailModule = require('trails/module.js');
 
 // use effects to transition contents
 Marionette.Region.prototype.attachHtml = function(view){

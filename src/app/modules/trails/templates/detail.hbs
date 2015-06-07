@@ -1,0 +1,57 @@
+<h1 class="icon_{{ type }}">{{ name }}</h1>
+<p>Created on: {{date created }}, by {{ owner }}</p>
+
+<div class="one-half">
+    <h3>Trail Data</h3>
+    <p>Data which has been extracted from the GPS track. The rating data may differ.</p>
+    <table class="table-striped nb">
+        <tr>
+            <td>Type</td>
+            <td>{{ type }}</td>
+        </tr>
+        <tr>
+            <td>Altitude Difference from start to finish</td>
+            <td>{{round  altitude_difference }} m</td>
+        </tr>
+        <tr>
+            <td>Average Slope</td>
+            <td>{{round avg_slope }} %</td>
+        </tr>
+        <tr>
+            <td>Max slope downhill</td>
+            <td>{{round max_slope_dh }} %</td>
+        </tr>
+        <tr>
+            <td>Max slope uphill</td>
+            <td>{{round max_slope_uh }} %</td>
+        </tr>
+        <tr>
+            <td>Length</td>
+            <td>{{round length.m}} m</td>
+        </tr>
+        <tr>
+            <td>Total Ascent</td>
+            <td>{{round total_ascent }} m</td>
+        </tr>
+        <tr>
+            <td>Total Descent</td>
+            <td>{{round total_descent }} m</td>
+        </tr>
+    </table>
+</div>
+
+
+<h3>Description</h3>
+<p>
+    {{escape description }}
+</p>
+
+<h3>Rating</h3>
+<p>A subview with own actions for rating</p>
+
+<h3>Height Profile</h3>
+<p>chart</p>
+
+<h3>Map</h3>
+<p>map view</p>
+
