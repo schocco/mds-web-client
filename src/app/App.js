@@ -16,6 +16,7 @@ var Controller = require('./Controller');
 var HomeModule = require('home/module');
 var MscaleModule = require('mscale/module');
 var TrailModule = require('trails/module');
+var ScalesModule = require('scales/module');
 
 // use effects to transition contents
 Marionette.Region.prototype.attachHtml = function(view){
@@ -40,6 +41,7 @@ var app = new App();
 app.module("Home", HomeModule);
 app.module("Mscale", MscaleModule);
 app.module("Trails", TrailModule);
+app.module("Scales", ScalesModule);
 
 
 //start history as soon as app is initialized
