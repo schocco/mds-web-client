@@ -1,5 +1,5 @@
 {
-  "name": "muni difficulty scale - web client",
+  "name": "muni_difficulty_scale_web_client",
   "version": "0.0.1",
   "description": "web application which uses the REST api of the muni difficulty scale server application",
   "keywords": [

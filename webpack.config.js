@@ -20,7 +20,8 @@ module.exports.development = {
         ]
     },
     resolve : {
-        root: "/modules"
+        root: "modules",
+        modulesDirectories: ['node_modules', 'modules']
     }
 };
 
@@ -39,6 +40,7 @@ module.exports.production = {
         ]
     },
     resolve : {
-        root: "/modules"
+        root: "/modules",
+        modulesDirectories: ['node_modules', 'modules']
     }
 };
