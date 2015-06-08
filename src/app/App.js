@@ -10,12 +10,12 @@ if (window.__agent) {
 }
 
 // load modules
-var Router = require('./Router.js');
-var RootView = require('./RootView.js');
-var Controller = require('./Controller.js');
-var HomeModule = require('home/module.js');
-var MscaleModule = require('mscale/module.js');
-var TrailModule = require('trails/module.js');
+var Router = require('./Router');
+var RootView = require('./RootView');
+var Controller = require('./Controller');
+var HomeModule = require('home/module');
+var MscaleModule = require('mscale/module');
+var TrailModule = require('trails/module');
 
 // use effects to transition contents
 Marionette.Region.prototype.attachHtml = function(view){
@@ -26,7 +26,6 @@ Marionette.Region.prototype.attachHtml = function(view){
 
 var App = Marionette.Application.extend({
 	initialize : function(options) {
-		console.log('app initialized.');
 		this.rootView = RootView;
 		this.rootView.render();
 	},

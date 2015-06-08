@@ -7,8 +7,7 @@ module.exports = Marionette.Controller.extend({
     },
 
     home: function() {
-       // this.renderView(view);
-    	console.log("home route.");
+        //redirect to the home view
     	Backbone.history.navigate('home', { trigger: true, replace: true});
     }
     

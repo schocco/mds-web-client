@@ -24,6 +24,8 @@ module.exports = Backbone.Collection.extend({
 
 	/**
 	 * Set the META returned by the API and return the resources.
+	 * @param response
+	 * @returns {*}
 	 */
 	parse : function(response) {
 		this.recentMeta = response.meta || {};
@@ -52,6 +54,11 @@ module.exports = Backbone.Collection.extend({
 		return this.recentMeta.previous !== null;
 	},
 
+	/**
+	 *
+	 * @param num the page number (starts with 1)
+	 * @returns {*}
+	 */
 	getPage : function(num) {
 		if (_.isNumber(num) && this.getTotalPages() >= num && num > 0) {
 			this.settings.offset = (num - 1) * this.getPageSize();
@@ -89,10 +96,18 @@ module.exports = Backbone.Collection.extend({
 		}
 	},
 
+	/**
+	 * Calculates the number of pages based on the pagesize.
+	 * @returns {number} number of pages
+	 */
 	getTotalPages : function() {
 		return Math.ceil(this.recentMeta.total_count / this.recentMeta.limit);
 	},
 
+	/**
+	 *
+	 * @returns {number} number of items available on the server
+	 */
 	getTotalItems : function() {
 		return this.recentMeta.total_count;
 	},
@@ -100,6 +115,8 @@ module.exports = Backbone.Collection.extend({
 	/**
 	 * Provide filter options as a dictionary. {"name" : "abc"} becomes
 	 * &name=abc
+	 * @param filter
+	 * @returns {object}
 	 */
 	setFilterOptions : function(filter) {
 		// TODO: allow other comparators than =
@@ -116,7 +133,7 @@ module.exports = Backbone.Collection.extend({
 	},
 
 	/**
-	 * Sets the order for the sorting. Can be either "+" (ascendind) or
+	 * Sets the order for the sorting. Can be either "+" (ascending) or
 	 * "-" (descending)
 	 */
 	setSortOrder : function(order) {
@@ -130,6 +147,10 @@ module.exports = Backbone.Collection.extend({
 
 	},
 
+    /**
+     * @param size number of elements to be on one page
+     * @returns {exports}
+     */
 	setPageSize : function(size) {
 		if (_.isNumber(size) && size > 0) {
 			this.settings.limit = size;
@@ -149,6 +170,8 @@ module.exports = Backbone.Collection.extend({
 
 	/**
 	 * Transforms query params to dict
+     * @param uri parses the query part of the uri and turns it into a dictionary
+     * @return {object} dictionary with extracted key-value pairs
 	 */
 	urlToDict : function(uri) {
 		queryParams = uri.substr(uri.lastIndexOf("?") + 1);
