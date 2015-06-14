@@ -12,7 +12,7 @@ var Chart = require('chart.js');
  * Renders the appropriate rating table in a region and draws a chart representation of the score.
  */
 module.exports = Marionette.LayoutView.extend({
-    profileViewOptions: ['type', 'editable'],
+    profileViewOptions: ['type', 'editable', 'score'],
 
     regions: {
       scoringTable: '[data-region=scoringTable]'
@@ -40,9 +40,14 @@ module.exports = Marionette.LayoutView.extend({
         Marionette.bindEntityEvents(this, this.model, this.modelEvents);
     },
 
+    /**
+     * Gets the appropriate scale model depending on the type argument provided upon instantiation.
+     * @return {UDHModel | UXCModel}
+     */
     getModel: function() {
         if(this.model == null) {
-            this.model = new this.typeModelMap[this.type]();
+            // create model object, either empty or with scoring data from caller
+            this.model = new this.typeModelMap[this.type](this.score);
         }
         return this.model;
     },
@@ -162,7 +167,7 @@ module.exports = Marionette.LayoutView.extend({
             // UXC
             var scoreData = [score['avg_difficulty'].result/score['avg_difficulty'].max*10,
                 score['max_difficulty'].result/score['max_difficulty'].max*10,
-                score['max_slope'].result/ score['max_slope'].max*10,
+                score['max_slope_uh'].result/ score['max_slope_uh'].max*10,
                 score['total_ascent'].result/score['total_ascent'].max*10,
                 score['total_length'].result/score['total_length'].max*10];
             datasets[0].data = scoreData;

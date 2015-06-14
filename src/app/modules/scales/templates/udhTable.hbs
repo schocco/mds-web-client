@@ -14,10 +14,10 @@
                 <td id="total_length">
                     {{#if editable }}
                     {{!-- show form fields when the score should be editable --}}
-                        <input type="number" value="{{ ../score.total_length.value }}"/>
+                        <input type="number" value="{{ ../total_length }}"/>
                     {{ else }}
                     {{!-- no form fields otherwise --}}
-                        {{ ../score.total_length.value }}
+                        {{ ../total_length }}
                     {{/if}}
                 </td>
                 <td style="text-align:right;">
@@ -30,10 +30,10 @@
                 <td id="avg_slope">
                     {{#if editable }}
                     {{!-- show form fields when the score should be editable --}}
-                        <input type="number" value="{{ ../score.avg_slope.value }}"/>
+                        <input type="number" value="{{round (abs ../avg_slope) }}"/>
                     {{ else }}
                     {{!-- no form fields otherwise --}}
-                        {{ ../score.avg_slope.value }}
+                        {{round (abs ../avg_slope) }}
                     {{/if}}
                 </td>
                 <td style="text-align:right;">
@@ -48,12 +48,12 @@
                     {{!-- show form fields when the score should be editable --}}
                         <select>
                             {{#range 0 5 0.5 }}
-                                <option value="{{ this }}" {{#equals (parsenumber ../score.max_difficulty.value) this}}selected{{/equals}}>M{{ this }}</option>
+                                <option value="{{ this }}" {{#equals (parsenumber ../max_difficulty) this}}selected{{/equals}}>M{{ this }}</option>
                             {{/range}}
                         </select>
                     {{ else }}
                     {{!-- no form fields otherwise --}}
-                        {{ ../score.max_difficulty.value }}
+                        {{ ../max_difficulty }}
                     {{/if}}
                 </td>
                 <td style="text-align:right;">
@@ -68,12 +68,12 @@
                     {{!-- show form fields when the score should be editable --}}
                         <select>
                             {{#range 0 5 0.5 }}
-                                <option value="{{ this }}" {{#equals (parsenumber ../score.avg_difficulty.value) this}}selected{{/equals}}>M{{ this }}</option>
+                                <option value="{{ this }}" {{#equals (parsenumber ../avg_difficulty) this}}selected{{/equals}}>M{{ this }}</option>
                             {{/range}}
                         </select>
                     {{ else }}
                     {{!-- no form fields otherwise --}}
-                        {{ ../score.avg_difficulty.value }}
+                        {{ ../avg_difficulty }}
                     {{/if}}
                 </td>
                 <td style="text-align:right;">

@@ -10,6 +10,12 @@ module.exports = ScaleBaseModel.extend({
         return "UXC Scale";
     },
 
+    initialize: function() {
+        //extend fieldsMap with scale specific values
+        var fieldsMap = $.extend({'max_slope_uh': 'max_slope_uh', 'total_ascent': 'total_ascent'}, this.trailFields);
+        this.trailFields = fieldsMap;
+    },
+
     /**
      * Uses common labels from the base class and extends them with specific labels/keys.
      *

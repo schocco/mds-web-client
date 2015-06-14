@@ -1,5 +1,7 @@
 var BaseModel = require('commons/models/BaseModel');
 var $ = require('jquery');
+var _ = require('lodash');
+var TrailModel = require('trails/models/Trail');
 
 /**
  * Base model for the UDH and UXC models with capability to request score from api.
@@ -32,7 +34,30 @@ module.exports = BaseModel.extend({
 		max_difficulty: "Maximum difficulty (M-Scale)",
 		total_length: "Total length (m)",
 		total_score: "Total score"
-	}
+	},
+
+    /**
+     * Maps attribute names of the scale model to attribute names of the trail model.
+     * Should be extended by children with scale specific field names.
+     */
+    trailFields: {
+        'total_length': 'trail_length'
+    },
+
+    /**
+     * Sets scale attributes using corresponding values of the supplied trail object.
+     *
+     * @param trail a Trail model instance
+     */
+    setTrailValues: function(trail) {
+        if(trail instanceof TrailModel) {
+            _.forEach(this.trailFields, function(trailField,scaleField){
+                this.set(scaleField, trail.get(trailField));
+            }, this);
+        } else {
+            throw "argument must be a trail object";
+        }
+    }
 
 
 });
