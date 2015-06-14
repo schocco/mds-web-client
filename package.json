@@ -44,7 +44,7 @@
     "webpack": "^1.5.3",
     "url-loader": "^0.5.5",
     "file-loader": "^0.8.1",
-    "css-loader": "^0.12.0",
+    "css-loader": "^0.14.5",
     "handlebars-loader": "^1.0.2",
     "webpack-dev-middleware": "^1.0.11",
     "po2json": "^0.4.1"
@@ -54,6 +54,7 @@
     "backbone.marionette": "^2.4.1",
     "jquery": "^1.11.3",
     "lodash": "^3.5.0",
-    "font-awesome-webpack": "^0.0.3"
+    "font-awesome-webpack": "^0.0.3",
+    "chart.js": "^1.0.2"
   }
 }

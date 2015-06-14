@@ -5,10 +5,10 @@ var TrailItemView = require('./TrailItem');
 /**
  * List view that displays all available Trails.
  */
-module.exports = Marionette.CollectionView.extend({
+module.exports = Marionette.CompositeView.extend({
 	template: tpl,
 	childView: TrailItemView,
-	itemViewContainer: '#trails'
+	childViewContainer: '#trails'
 
     //TODO: filtering
 

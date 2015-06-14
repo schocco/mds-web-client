@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-12 col-tablet-7">
+        <h2>Calculator - {{ name }}</h2>
+
+        {{#if editable }}
+            <form id="calculateScoreForm">
+        {{/if}}
+        <div data-region="scoringTable"></div>
+        {{#if editable }}
+            </form>
+            <a href="#" id="updateBtn" class="button right">update score</a>
+            {{#if saveable }}
+                <a href="" id="saveBtn" class="button right">save score</a>
+            {{/if}}
+        {{/if}}
+    </div>
+
+    <div class="col-12 col-tablet-5" id="canvasDiv">
+        <h2>Score Radar Chart</h2>
+        <span>Each dot in the graph represents the percentage of the maximum
+	        possible score for one category. The area of the graph represents the total score.
+        </span>
+        <canvas id="chartCanvas" width="350" height="300">
+            Canvas not supported by your browser
+        </canvas>
+    </div>
+</div>

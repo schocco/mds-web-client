@@ -6,11 +6,11 @@ var $ = require('jquery');
 /**
  * List view that displays all available Mscales, except intermediate steps.
  */
-module.exports = Marionette.CollectionView.extend({
+module.exports = Marionette.CompositeView.extend({
 	template: tpl,
 	childView: MscaleItemView,
-	itemViewContainer: '#mscales',
-	
+	childViewContainer: '#mscales',
+
     /**
      * don't show intermediate mscale steps
      */
