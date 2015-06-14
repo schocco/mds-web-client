@@ -65,7 +65,7 @@ gulp.task('serve', function() {
             return [ (function() {
                 var url = require('url');
                 var proxy = require('proxy-middleware');
-                var options = url.parse('https://muni-scale.info/api/');
+                var options = url.parse('http://localhost:8000/api/');
                 options.route = '/api/';
                 return proxy(options);
             })() ];
