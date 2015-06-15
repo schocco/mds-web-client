@@ -1,6 +1,7 @@
 var Marionette = require('backbone.marionette');
 var tpl = require('../templates/detail.hbs');
-var ScoreView = require('scales/views/Score.js');
+var ScoreView = require('scales/views/Score');
+var MapView = require('map/views/MapView');
 var UXCModel = require('scales/models/UXCModel');
 var UDHModel = require('scales/models/UDHModel');
 
@@ -29,24 +30,39 @@ module.exports = Marionette.LayoutView.extend({
      * Triggers the rendering of all subviews.
      * Wait until the view has been rendered before inserting subviews into dom nodes.
      */
-    onRender: function() {
-        if(this.model.get("type") != undefined) {
-            this.scoring.show(new ScoreView({
+    onRender: function () {
+        // rating view
+        if (this.model.get("type") != undefined) {
+            var view = new ScoreView({
                 type: this.typeMap[this.model.get("type")],
-                editable: this.isEditable() || this.isUnrated(), //TODO: should be &&
+                editable: this.isEditable(),
                 score: this.getRatingDataFromTrail()
-            }));
-        };
+            });
+            this.scoring.show(view);
+        }
+        // map view
+        if (this.model.get("waypoints") != undefined) {
+            var view = new MapView({waypoints: this.model.get("waypoints")});
+            this.map.show(view);
+        }
+        // height profile
+        //TODO: height profile subview
     },
 
     /**
      * Creates a new scale model and sets attributes with values found in the trail model.
-     * @return {Object} created scale object as dictionary
+     * If the trail has already been rated, then the associated rating object is returned.
+     *
+     * @return {Object} created scale object as dictionary / existing trail rating
      */
     getRatingDataFromTrail: function () {
         if (this.model != null && this.model.get("type") != null) {
-            var scaleModel = this.model.get("type") == "downhill" ? new UDHModel() : new UXCModel();
-            scaleModel.setTrailValues(this.model);
+            if(this.isUnrated()) {
+                var scaleModel = this.model.get("type") == "downhill" ? new UDHModel() : new UXCModel();
+                scaleModel.setTrailValues(this.model);
+            } else {
+                return this.model.getRating();
+            }
         }
         return scaleModel.toJSON();
     },

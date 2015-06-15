@@ -67,11 +67,17 @@ module.exports = Marionette.LayoutView.extend({
         this.renderTable();
     },
 
+    /**
+     * Re-renders regions when the model was updated with a new calculation result.
+     */
     onScoreUpdate: function() {
         this.drawScoreChart();
         this.renderTable();
     },
 
+    /**
+     * Renders the scoring table in the appropriate region.
+     */
     renderTable: function() {
         var tableView = new Marionette.ItemView({
             model: this.model,
@@ -82,7 +88,8 @@ module.exports = Marionette.LayoutView.extend({
     },
 
     /**
-     *
+     * Called when the user clicks the update button.
+     * Triggers a post request to the API to get an updated score with the current table values.
      */
     onScoreUpdateClicked: function() {
         this.readFormValues();
@@ -95,6 +102,7 @@ module.exports = Marionette.LayoutView.extend({
     onScoreSaveClicked: function() {
 
     },
+
 
     /**
      * Reads the values from the scoring form and updates the model with the new values.
@@ -111,6 +119,10 @@ module.exports = Marionette.LayoutView.extend({
         }
     },
 
+    /**
+     *
+     * @return {String} template for the UDH or UXC table
+     */
     getTableTemplate: function() {
         if(this.type == "udh") {
             return tplUDH;
@@ -134,7 +146,8 @@ module.exports = Marionette.LayoutView.extend({
             scaleOverride : true,
             scaleStepWidth : 1,
             scaleSteps : 10,
-            responsive: true
+            responsive: true,
+            legendTemplate: "hello"
         };
         var score = this.model.get("score");
 
@@ -144,6 +157,7 @@ module.exports = Marionette.LayoutView.extend({
         var ctx = canvas.getContext("2d");
         var datasets = [
             {
+                label: "a label",
                 fillColor : "rgba(151,187,205,0.2)",
                 strokeColor : "rgba(151,187,205,1)",
                 pointColor : "rgba(151,187,205,1)",
