@@ -44,6 +44,8 @@ module.exports = Marionette.LayoutView.extend({
         if (this.model.get("waypoints") != undefined) {
             var view = new MapView();
             view.addFeature(this.model.get("waypoints"));
+            view.setStart(this.model.get("start"));
+            view.setFinish(this.model.get("finish"));
             this.map.show(view);
         }
         // height profile

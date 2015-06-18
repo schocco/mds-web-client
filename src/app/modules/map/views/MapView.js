@@ -4,6 +4,7 @@ var $ = require('jquery');
 var ol = require("openlayers");
 var mapStyles = require('./MapStyles');
 var css = require("openlayers/dist/ol.css");
+var IconBuilder = require('../icons/IconBuilder');
 
 /**
  * Mapview for displaying features on an OSM map.
@@ -39,6 +40,7 @@ module.exports = Marionette.ItemView.extend({
     /**
      * Iterates all features from the vectorSource to set the min and max values for the extent.
      * The extent will be chosen, so that all features will be visible on the map.
+     * An additional small padding is applied on all corners.
      */
     zoomToContent: function() {
         var finalExtent; // minx, miny, maxx, maxy
@@ -55,6 +57,12 @@ module.exports = Marionette.ItemView.extend({
                 this.finalExtent[3] = Math.max(extent[3], this.finalExtent[3]);
             }
         }, this);
+        // add some extra space
+        var padding = 3;
+        this.finalExtent[0] = this.finalExtent[0] - padding;
+        this.finalExtent[1] = this.finalExtent[1] - padding;
+        this.finalExtent[2] = this.finalExtent[2] + padding;
+        this.finalExtent[3] = this.finalExtent[3] + padding;
         this.view.fitExtent(this.finalExtent, this.map.getSize()); //XXX: fitExtent() is not stable, review before ol update
     },
 
@@ -85,21 +93,52 @@ module.exports = Marionette.ItemView.extend({
 
     /**
      * Adds a feature to the map layer and transforms it from WGS84 to the appropriate map projection.
-     * @param geojson the geometry object
+     * @param geoJson the geometry object
      * @param geoJson.type type of the geometry (e.g. "LineString")
      * @param geoJson.coordinates an array with coordinates for this geometry
-     * @param center
      */
     addFeature: function(geoJson) {
+        var feature = this.transform(geoJson);
+        this.vectorSource.addFeature(feature);
+    },
+
+    /**
+     *
+     * @param geom
+     * @return {ol.Feature}
+     */
+    transform: function(geom) {
         var wgs84geojson = new ol.format.GeoJSON({defaultDataFormat: 'EPSG:4326'});
         var wgs84feature = wgs84geojson.readFeature({
             'type': 'Feature',
-            'geometry': geoJson
+            'geometry': geom
         }, {
             dataProjection: 'EPSG:4326',
             featureProjection: 'EPSG:3857'
         } );
-        this.vectorSource.addFeature(wgs84feature);
+        return wgs84feature;
+    },
+
+    /**
+     *
+     * @param geojson should be a point
+     */
+    setStart: function(geojson) {
+        var feature = this.transform(geojson);
+        var iconBuilder = new IconBuilder({icon: "map-marker", color: "black"});
+        feature.setStyle(iconBuilder.get());
+        this.vectorSource.addFeature(feature);
+    },
+
+    /**
+     *
+     * @param geojson should be a point
+     */
+    setFinish: function(geojson) {
+        var feature = this.transform(geojson);
+        var iconBuilder = new IconBuilder({icon: "flag", color: "black"});
+        feature.setStyle(iconBuilder.get());
+        this.vectorSource.addFeature(feature);
     },
 
 
