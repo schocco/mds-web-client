@@ -28,10 +28,10 @@ var autoprefixerBrowsers = [
     'bb >= 10'
 ];
 
+
 gulp.task('scripts', function () {
     return gulp.src(webpackConfig.entry)
         .pipe($.webpack(webpackConfig))
-        .pipe(isProduction ? $.uglify() : $.util.noop())
         .pipe(gulp.dest(dist))
         .pipe($.size({title: 'js'}))
         .pipe($.connect.reload());
@@ -84,6 +84,7 @@ gulp.task('watch', function () {
     gulp.watch(src + 'index.html', ['html']);
     gulp.watch(src + 'app/**/*.hbs', ['scripts']);
     gulp.watch(src + 'app/**/*.js', ['scripts']);
+    gulp.watch('webpack.config.js', ['scripts']);
 });
 
 gulp.task('clean', function (cb) {

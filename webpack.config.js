@@ -36,12 +36,19 @@ module.exports.development = {
 };
 
 module.exports.production = {
-    debug: false,
+    debug: true,
     entry: entry,
     output: output,
     module : {
+        preLoaders: [
+            {
+                test: /\.js$/, // include .js files
+                exclude: /node_modules/, // exclude any and all files in the node_modules folder
+                loader: "jshint-loader"
+            }
+        ],
         loaders : [
-            { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
+            { test: /\.js?$/, loader: 'babel-loader!uglify-loader' },
             { test: /\.css$/,    loader: 'style-loader!css-loader' },
             { test: /\.hbs$/,    loader: 'handlebars-loader?helperDirs[]=' + __dirname + '/src/app/modules/commons/templateHelpers' },
             // loaders for webfonts
