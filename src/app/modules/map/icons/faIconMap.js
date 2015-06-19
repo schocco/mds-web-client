@@ -1,6 +1,6 @@
 /**
  * A complete map of font-awesome icon names (without the "fa-" prefix) and corresponding characters.
- * Each values are objects with a text attribute and possibly other styling information such as offsets
+ * Values are objects with a text attribute and possibly other styling information such as offsets
  * which can be used to extend/overwrite the style object in ol.style.Text.
  *
  * See https://fortawesome.github.io/Font-Awesome/cheatsheet/ for a complete list

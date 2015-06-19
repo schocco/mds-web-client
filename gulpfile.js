@@ -6,6 +6,7 @@ var del = require('del');
 var url = require('url');
 var proxy = require('proxy-middleware');
 
+
 var environment = $.util.env.type || 'development';
 var isProduction = environment === 'production';
 var webpackConfig = require('./webpack.config.js')[environment];
@@ -27,11 +28,10 @@ var autoprefixerBrowsers = [
     'bb >= 10'
 ];
 
-
 gulp.task('scripts', function () {
     return gulp.src(webpackConfig.entry)
         .pipe($.webpack(webpackConfig))
-        .pipe(isProduction ? $.uglifyjs() : $.util.noop())
+        .pipe(isProduction ? $.uglify() : $.util.noop())
         .pipe(gulp.dest(dist))
         .pipe($.size({title: 'js'}))
         .pipe($.connect.reload());

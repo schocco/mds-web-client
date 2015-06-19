@@ -6,7 +6,7 @@ var Marionette = require('backbone.marionette');
 
 // for the marionette inspector
 if (window.__agent) {
-	window.__agent.start(Backbone, Marionette);
+    window.__agent.start(Backbone, Marionette);
 }
 
 // load modules
@@ -19,21 +19,21 @@ var TrailModule = require('trails/module');
 var ScalesModule = require('scales/module');
 
 // use effects to transition contents
-Marionette.Region.prototype.attachHtml = function(view){
-	this.$el.hide();
-	this.$el.html(view.el);
-	this.$el.fadeIn(200);
+Marionette.Region.prototype.attachHtml = function (view) {
+    this.$el.hide();
+    this.$el.html(view.el);
+    this.$el.fadeIn(200);
 };
 
 var App = Marionette.Application.extend({
-	initialize : function(options) {
-		this.rootView = RootView;
-		this.rootView.render();
-	},
-	
-	getRoot: function(){
-		return this.rootView;
-	}
+    initialize: function () {
+        this.rootView = RootView;
+        this.rootView.render();
+    },
+
+    getRoot: function () {
+        return this.rootView;
+    }
 });
 
 var app = new App();
@@ -45,11 +45,11 @@ app.module("Scales", ScalesModule);
 
 
 //start history as soon as app is initialized
-app.on("start", function(options) {
-	app.router = new Router({
-		controller : new Controller()
-	});
-	Backbone.history.start();
+app.on("start", function (options) {
+    app.router = new Router({
+        controller: new Controller()
+    });
+    Backbone.history.start();
 });
 
 
