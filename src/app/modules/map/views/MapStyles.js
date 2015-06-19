@@ -75,4 +75,4 @@ module.exports = {
             color: 'rgba(255,0,0,0.2)'
         })
     })]
-}
+};

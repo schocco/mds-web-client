@@ -4,4 +4,4 @@ module.exports = function(num) {
         return parseFloat(stripped);
     }
     return "";
-}
+};

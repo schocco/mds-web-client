@@ -71,19 +71,19 @@ module.exports = Marionette.ItemView.extend({
     onLayerSelectedCycling: function () {
         this.hideLayers();
         $("#btnCycling").addClass("button-active");
-        this.layers["cycling"].setVisible(true);
+        this.layers.cycling.setVisible(true);
     },
 
     onLayerSelectedLandscape: function () {
         this.hideLayers();
         $("#btnLandscape").addClass("button-active");
-        this.layers["landscape"].setVisible(true);;
+        this.layers.landscape.setVisible(true);
     },
 
     onLayerSelectedOsm: function () {
         this.hideLayers();
         $("#btnOSM").addClass("button-active");
-        this.layers["osm"].setVisible(true);
+        this.layers.osm.setVisible(true);
     },
 
     initialize: function (options) {
@@ -108,7 +108,7 @@ module.exports = Marionette.ItemView.extend({
     zoomToContent: function () {
         this.vectorSource.forEachFeature(function (feature) {
             var extent = feature.getGeometry().getExtent();
-            if (this.finalExtent == null) {
+            if (this.finalExtent === null) {
                 this.finalExtent = extent;
             } else {
                 // set min values for x and y
@@ -138,9 +138,9 @@ module.exports = Marionette.ItemView.extend({
     showMap: function () {
         this.map = new ol.Map({
             layers: [
-                this.layers['cycling'],
-                this.layers['osm'],
-                this.layers['landscape'],
+                this.layers.cycling,
+                this.layers.osm,
+                this.layers.landscape,
                 this.vectorLayer
             ],
             target: 'map',

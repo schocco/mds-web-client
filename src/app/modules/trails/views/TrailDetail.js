@@ -32,21 +32,21 @@ module.exports = Marionette.LayoutView.extend({
      */
     onRender: function () {
         // rating view
-        if (this.model.get("type") != undefined) {
-            var view = new ScoreView({
+        if (this.model.get("type") !== undefined) {
+            var scoringView = new ScoreView({
                 type: this.typeMap[this.model.get("type")],
                 editable: this.isEditable(),
                 score: this.getRatingDataFromTrail()
             });
-            this.scoring.show(view);
+            this.scoring.show(scoringView);
         }
         // map view
-        if (this.model.get("waypoints") != undefined) {
-            var view = new MapView();
-            view.addFeature(this.model.get("waypoints"));
-            view.setStart(this.model.get("start"));
-            view.setFinish(this.model.get("finish"));
-            this.map.show(view);
+        if (this.model.get("waypoints") !== undefined) {
+            var mapView = new MapView();
+            mapView.addFeature(this.model.get("waypoints"));
+            mapView.setStart(this.model.get("start"));
+            mapView.setFinish(this.model.get("finish"));
+            this.map.show(mapView);
         }
         // height profile
         //TODO: height profile subview
@@ -59,15 +59,16 @@ module.exports = Marionette.LayoutView.extend({
      * @return {Object} created scale object as dictionary / existing trail rating
      */
     getRatingDataFromTrail: function () {
-        if (this.model != null && this.model.get("type") != null) {
+        if (this.model !== null && this.model.get("type") !== null) {
             if(this.isUnrated()) {
                 var scaleModel = this.model.get("type") == "downhill" ? new UDHModel() : new UXCModel();
                 scaleModel.setTrailValues(this.model);
+                return scaleModel.toJSON();
             } else {
                 return this.model.getRating();
             }
         }
-        return scaleModel.toJSON();
+        return {};
     },
 
     isEditable: function() {
@@ -76,7 +77,7 @@ module.exports = Marionette.LayoutView.extend({
     },
 
     isUnrated: function() {
-        return this.model.getRating() == null;
+        return this.model.getRating() === null;
     }
 
 
