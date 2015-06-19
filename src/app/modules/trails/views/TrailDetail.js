@@ -2,6 +2,7 @@ var Marionette = require('backbone.marionette');
 var tpl = require('../templates/detail.hbs');
 var ScoreView = require('scales/views/Score');
 var MapView = require('map/views/MapView');
+var HeightProfileView = require('./TrailHeightProfile');
 var UXCModel = require('scales/models/UXCModel');
 var UDHModel = require('scales/models/UDHModel');
 
@@ -12,7 +13,8 @@ module.exports = Marionette.LayoutView.extend({
 
     regions: {
         scoring:'[data-region=scoring]',
-        map: '[data-region=map]'
+        map: '[data-region=map]',
+        heightProfile: '[data-region=heightProfile]'
     },
 
     /** Maps trail types to scale types.  */
@@ -49,7 +51,11 @@ module.exports = Marionette.LayoutView.extend({
             this.map.show(mapView);
         }
         // height profile
-        //TODO: height profile subview
+        if (this.model.get("height_profile") !== undefined) {
+            var heightProfileView = new HeightProfileView({profile: this.model.get("height_profile")});
+            console.log("show height profile.");
+            this.heightProfile.show(heightProfileView);
+        }
     },
 
     /**

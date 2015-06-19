@@ -158,9 +158,9 @@ module.exports = Marionette.LayoutView.extend({
         var datasets = [
             {
                 label: "a label",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
+                fillColor: "rgba(205,92,92,0.2)",
+                strokeColor: "rgba(205,92,92,1)",
+                pointColor: "rgba(205,92,92,1)",
                 pointStrokeColor: "#fff"
             }
         ];
