@@ -3,7 +3,7 @@ var MscaleCollection = require('./models/Mscales');
 var MscaleView = require('./views/Mscales');
 var rootView = require('../../RootView');
 
-module.exports = Marionette.Controller.extend({
+module.exports = {
     initialize: function() {
     	//some init action
     },
@@ -17,6 +17,6 @@ module.exports = Marionette.Controller.extend({
     	var view = new MscaleView({collection: mscales});
     	mscales.fetch();
     	rootView.showChildView('body', view);
-    },
+    }
     
-});
+};

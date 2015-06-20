@@ -14,6 +14,7 @@ var RootView = Marionette.LayoutView.extend({
 
 	regions: {
 	    header: '[data-region=header]', // Not used right now
+		headerExtra: '[data-region=headerExtra]',
 	    body: '[data-region=body]',
 	    footer: '[data-region=footer]' // Not used right now
 	},

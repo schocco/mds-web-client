@@ -1,0 +1,81 @@
+@import "base/_variables";
+@num_menu_items:        4;
+@header-font-color1:     white;
+@header-font-color2:     white;
+@nav-color:             @highlight-color-dark;
+@nav-color-hover:       @highlight-color-light;
+
+
+header {
+  background: rgba(0, 0, 0, 0) url("../static/img/header.jpg") no-repeat fixed center center / cover;
+  color: @header-font-color1;
+  h1, h2, h3, h4, h5, p {
+    color: @header-font-color2;
+  }
+  a {
+    color: white;
+    text-decoration: none;
+    outline: none; // no dotted border after clicks
+  }
+
+  .logo {
+    font-weight: @font-semi-bold;
+    letter-spacing: 0.02rem;
+    :hover {
+      color: @header-font-color2;
+    }
+  }
+
+  .header-extra {
+    min-height: 20vh;
+    height: auto;
+  }
+}
+
+
+.navbar {
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  ul {
+    margin: 10px 0px;
+  }
+
+  ul li {
+    display: inline-block;
+    width: 100% / @num_menu_items - 2; // reduce width to avoid wrapping
+    padding: 1px 10px;
+    vertical-align: top;
+    text-align: center;
+    :hover {
+      color: @highlight-color-light;
+    }
+    :active {
+      color: @highlight-color-dark;
+    }
+  }
+
+  .menu-txt {
+    display: block;
+  }
+}
+
+// stack menu on small screens
+@media only screen and (max-width: @mobile-breakpoint) {
+  .navbar {
+    ul li {
+      width: 100%;
+      display: block;
+      text-align: left;
+    }
+    i { // center icons vertically when text next to icon
+      vertical-align: middle;
+    }
+
+    .menu-txt {
+      display: inline-block;
+      padding-left: 20px;
+    }
+  }
+}
+

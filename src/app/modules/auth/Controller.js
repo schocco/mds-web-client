@@ -1,17 +1,16 @@
 var Marionette = require('backbone.marionette');
+var LoginView = require('./views/Login');
 var rootView = require('../../RootView');
-var UxcView = require('./views/Uxc');
-var UdhView = require('./views/Udh');
 
 module.exports = {
 
-    uxc: function() {
-    	var view = new UxcView();
+    login: function() {
+    	var view = new LoginView();
     	rootView.showChildView('body', view);
     },
 
-    udh: function() {
-        var view = new UdhView();
+    profile: function() {
+        var view = new LoginView();
         rootView.showChildView('body', view);
     }
     

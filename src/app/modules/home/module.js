@@ -11,7 +11,6 @@ var HomeModule = Marionette.Module.extend({
 
   onStart: function(options) {
   	console.log("home module started");
-  	HomeModule.controller.show();
   },
 
   onStop: function(options) {
@@ -19,7 +18,7 @@ var HomeModule = Marionette.Module.extend({
   }
 });
 
-HomeModule.controller = new Controller();
+HomeModule.controller = Controller;
 HomeModule.router = new Router({controller : HomeModule.controller});
 
 module.exports = HomeModule;

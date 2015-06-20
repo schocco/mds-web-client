@@ -19,6 +19,21 @@ legend {
   padding-bottom: 1em;
 }
 
+.form-inline {
+  .form();
+  label {
+    display: inline-block;
+    width: 20%;
+  }
+}
+
+.form-block {
+  .form();
+  label {
+    display: block;
+  }
+}
+
 // All Form Elements
 label,
 button,
@@ -35,6 +50,7 @@ textarea {
 input { line-height: normal; }
 .input { width: 100%; }
 input[type="text"],
+input[type="password"],
 input[type="email"],
 input[type="phone"] {
   height: 36px;

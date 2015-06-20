@@ -6,14 +6,7 @@ var app = require('../../App');
 var rootView = require('../../RootView');
 
 
-module.exports = Marionette.Controller.extend({
-    initialize: function() {
-    	//some init action
-    },
-    
-    show: function() {
-    	//just a placeholder
-    },
+module.exports = {
 
     home: function() {
        // this.renderView(view);
@@ -27,4 +20,4 @@ module.exports = Marionette.Controller.extend({
      	rootView.showChildView('body', view);
      }
     
-});
+};

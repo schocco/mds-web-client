@@ -20,7 +20,7 @@ var ScalesModule = Marionette.Module.extend({
 
 });
 
-ScalesModule.controller = new Controller();
+ScalesModule.controller = Controller;
 ScalesModule.router = new Router({controller : ScalesModule.controller});
 
 module.exports = ScalesModule;

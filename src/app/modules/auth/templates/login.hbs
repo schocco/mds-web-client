@@ -1,0 +1,38 @@
+<div class="container">
+<div class="container-full">
+    <h1>Login</h1>
+</div>
+<div class="row">
+    <div class="col-12 col-tablet-6">
+        <h2>Login with your MDS account</h2>
+        <p>Don't have an account? Sign up <a href="#signup">here</a></p>
+        <form id="loginForm" class="form-block">
+            <div>
+                <label for="id_username">Username</label>
+                <input type="text" maxlength="254" name="username" id="id_username">
+            </div>
+            <div>
+                <label for="id_password">Password</label>
+                <input type="password" name="password" id="id_password">
+            </div>
+            <div style="margin-top: 5px;">
+                <a class="button" id="loginSubmit">login</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-12 col-tablet-6">
+        <h2>Login with another account:</h2>
+        <p>If you have an account for one of the following sites, you can use it to login. When authenticating for the first time, you will be asked for confirmation by the third party site.</p>
+        <ul style="list-style-type: none; padding: 0; margin-left: 0;">
+
+            <li><a href="/login/facebook/?next=%2F%23%2Fuxc-scale" class="button facebook"><i class="icon-facebook"></i> facebook</a></li>
+
+            <li><a href="/login/google-oauth2/?next=%2F%23%2Fuxc-scale" class="button google"><i class="icon-googleplus"></i> google</a></li>
+
+            <li><a href="/login/twitter/?next=%2F%23%2Fuxc-scale" class="button twitter"><i class="icon-twitter"></i> twitter</a></li>
+
+        </ul>
+    </div>
+</div>
+</div>

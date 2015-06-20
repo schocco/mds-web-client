@@ -2,6 +2,10 @@
 // Base – Variables
 // ==========================================================================
 
+// Theme colors
+@highlight-color-light:                         #cd5c5c;
+@highlight-color-dark:                          #891818;
+
 // Global Typography
 @base-background-color:                         #fff;
 @base-font-family:                              sans-serif;
@@ -9,7 +13,7 @@
 @base-line-height:                              22;
 @base-font-weight:                              400;
 @base-font-color:                               #585858;
-@base-link-color:                               #cd5c5c;
+@base-link-color:                               @highlight-color-light;
 
 // Font Weights
 @font-thin:                                     100;
@@ -69,6 +73,7 @@
 @hd-container:                                  1140px;
 
 // Responsive Breakpoints
+@mobile-breakpoint:                             450px;
 @tablet-breakpoint:                             (@tablet-container - 1);
 @desktop-breakpoint:                            (@desktop-container - 1);
 @hd-breakpoint:                                 (@hd-container - 1);

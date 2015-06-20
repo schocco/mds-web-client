@@ -2,7 +2,7 @@ var Marionette = require('backbone.marionette');
 var app = require('../../App');
 var Router = require('./Router');
 var Controller = require('./Controller');
-var MscaleModule = Marionette.Module.extend({
+var AuthModule = Marionette.Module.extend({
   startWithParent: true,
 
   initialize: function(options, moduleName, app) {
@@ -10,15 +10,15 @@ var MscaleModule = Marionette.Module.extend({
   },
 
   onStart: function(options) {
-  	console.log("mscale module started");
+  	console.log("auth module started");
   },
 
   onStop: function(options) {
-    console.log("mscale module stopped");
-  },
+    console.log("auth module stopped");
+  }
 });
 
-MscaleModule.controller = Controller;
-MscaleModule.router = new Router({controller : MscaleModule.controller});
+AuthModule.controller = Controller;
+AuthModule.router = new Router({controller : AuthModule.controller});
 
-module.exports = MscaleModule;
+module.exports = AuthModule;

@@ -17,6 +17,7 @@ var HomeModule = require('home/module');
 var MscaleModule = require('mscale/module');
 var TrailModule = require('trails/module');
 var ScalesModule = require('scales/module');
+var AuthModule = require('auth/module');
 
 // use effects to transition contents
 Marionette.Region.prototype.attachHtml = function (view) {
@@ -42,12 +43,13 @@ app.module("Home", HomeModule);
 app.module("Mscale", MscaleModule);
 app.module("Trails", TrailModule);
 app.module("Scales", ScalesModule);
+app.module("Auth", AuthModule);
 
 
 //start history as soon as app is initialized
 app.on("start", function (options) {
     app.router = new Router({
-        controller: new Controller()
+        controller: Controller
     });
     Backbone.history.start();
 });

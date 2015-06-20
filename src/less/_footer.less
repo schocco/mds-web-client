@@ -1,0 +1,29 @@
+@import "base/_variables";
+
+@footer-height: 200px;
+
+html, body {
+  height: 100%;
+}
+
+//use wrapper to get a sticky footer
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -@footer-height;
+  padding-bottom: @footer-height + 20px;
+}
+
+footer, .push {
+  background: @highlight-color-dark;
+  height: @footer-height;
+  padding-top: 20px;
+  color: #ccc;
+  a {
+    color: #eee;
+  }
+  h1, h2, h3, h4, h5 {
+    color: #ccc;
+  }
+}
