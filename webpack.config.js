@@ -1,15 +1,17 @@
 var path = require("path");
 var webpack = require("webpack");
-var entry = ['font-awesome-webpack!./src/app/conf/font-awesome.config.js', './src/app/App.js'],
+AssetsPlugin = require('assets-webpack-plugin');
+var _ = require('lodash');
+var commonEntry = [ 'font-awesome-webpack!./src/app/conf/font-awesome.config.js', './src/app/App.js']
   output = {
     path: __dirname,
-    filename: 'App.js'
+    filename: '[name].App.js'
   };
 
 module.exports.development = {
     debug : true,
     devtool : 'eval',
-    entry: entry,
+    entry: commonEntry,
     output: output,
     module : {
         preLoaders: [
@@ -37,8 +39,15 @@ module.exports.development = {
 
 module.exports.production = {
     debug: true,
-    entry: entry,
-    output: output,
+    entry: commonEntry,
+    output: _.extend(output, {
+        filename: 'App.[hash].js',
+        chunkFilename: "App.[id].[chunkhash].js",
+        publicPath: '/static/'
+    }),
+    plugins: [
+            new AssetsPlugin() // writes assets.json file that can be read in by custom django storage class
+    ],
     module : {
         preLoaders: [
             {
