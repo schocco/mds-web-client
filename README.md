@@ -9,3 +9,6 @@ The server project can be found at https://github.com/schocco/mds-web
 - run npm install in this directory
 - run gulp
 - done
+
+## Build for production
+run `gulp build --type production` for a production build, serve the dist folder

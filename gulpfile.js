@@ -6,8 +6,8 @@ var del = require('del');
 var url = require('url');
 var proxy = require('proxy-middleware');
 
-
-var environment = $.util.env.type || 'development';
+$.util.log("HELLO" + $.util.env);
+var environment = $.util.env.type || 'development'; // run `gulp build --type production` for a production build
 var isProduction = environment === 'production';
 var webpackConfig = require('./webpack.config.js')[environment];
 

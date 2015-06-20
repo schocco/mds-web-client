@@ -48,7 +48,8 @@ module.exports.production = {
             }
         ],
         loaders : [
-            { test: /\.js?$/, loader: 'babel-loader!uglify-loader' },
+            { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
+            { test: /\.js?$/, loader: 'uglify-loader' },
             { test: /\.css$/,    loader: 'style-loader!css-loader' },
             { test: /\.hbs$/,    loader: 'handlebars-loader?helperDirs[]=' + __dirname + '/src/app/modules/commons/templateHelpers' },
             // loaders for webfonts
