@@ -55,10 +55,11 @@
   "dependencies": {
     "backbone": "~1.1.2",
     "backbone.marionette": "^2.4.1",
+    "backbone.radio": "^1.0.0",
+    "chart.js": "^1.0.2",
+    "font-awesome-webpack": "^0.0.3",
     "jquery": "^1.11.3",
     "lodash": "^3.5.0",
-    "font-awesome-webpack": "^0.0.3",
-    "chart.js": "^1.0.2",
     "openlayers": "^3.6.0"
   }
 }
