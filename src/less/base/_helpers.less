@@ -39,6 +39,23 @@
 .absolute { position: absolute; }
 .static { position: static; }
 
+// widths
+.width-20 {
+  width: 20%;
+}
+.width-40 {
+  width: 40%;
+}
+.width-60 {
+  width: 60%;
+}
+.width-80 {
+  width: 80%;
+}
+.width-100 {
+  width: 100%;
+}
+
 // Display Types
 .block { display: block; }
 .inline-block { display: inline-block; }
@@ -133,6 +150,25 @@
 .button-secondary {
   // Add your styles here
 }
+
+.button-facebook {
+  .button();
+  &:hover { background: #0000ff; color: white }
+  &:active { background: #0000ff; color: white }
+}
+
+.button-twitter {
+  .button();
+  &:hover { background: #2daebf; color: white }
+  &:active { background: #2daebf; color: white }
+}
+
+.button-google {
+  .button();
+  &:hover { background: #ff0000; color: white }
+  &:active { background: #ff0000; color: white }
+}
+
 .button-link {
   color: @base-link-color;
   text-decoration: underline;
