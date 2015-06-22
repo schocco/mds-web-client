@@ -5,3 +5,4 @@ src/bundles
 *.log
 .DS_Storenpm-debug.log
 webpack-assets.json
+.idea
