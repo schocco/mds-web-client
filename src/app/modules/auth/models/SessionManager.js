@@ -40,10 +40,11 @@ module.exports = Marionette.Object.extend({
          * Runs initial checks for existing sessions, cookies etc.
          */
         start: function() {
-            this.currentUser.checkAuthStatus({
-                loggedIn: function() {
+            this.checkAuthStatus({
+                loggedIn: function(user) {
                     //TODO: trigger event
                     console.log("logged in");
+                    this.currentUser = user;
                 },
                 loggedOut: function() {
                     //TODO: trigger event
@@ -53,7 +54,7 @@ module.exports = Marionette.Object.extend({
                     //TODO: log error, trigger event?
                     console.log("error " + data);
                 }
-            });
+            }, this);
         },
 
         /**
@@ -71,7 +72,6 @@ module.exports = Marionette.Object.extend({
         /** Terminates the session. */
         logout: function () {
             var uri = this.urlRoot + "logout/";
-            var that = this;
             $.getJSON(uri).done(
                 function (data) {
                     //TODO: announce login via radio
@@ -112,6 +112,41 @@ module.exports = Marionette.Object.extend({
                     //TODO: announce login failed via radio
                     if (options.error) {
                         options.error(data.responseJSON);
+                    }
+                });
+        },
+
+        /**
+         * Checks if the currentUser is logged in by sending a request to the server.
+         * If no sessionid cookie is sent or the session has expired, the user is not logged in.
+         *
+         * @param options.loggedIn   a function that is called when the user is logged in, the method is invoked with
+         *                           the user instance of the currently logged in user as argument
+         * @param options.loggedOut  a function that is called when the user is logged out
+         * @param options.error      a function that is called when an error occurs
+         * @param callbackThis       what this references to in the provided callbacks (defaults to the user model
+         *                           instance)
+         * */
+        checkAuthStatus: function (options, callbackThis) {
+            var uri = this.urlRoot + "auth-status/";
+            var context = callbackThis === undefined ? this : callbackThis;
+
+            $.getJSON(uri).done(
+                function (data) {
+                    if (data.status == "loggedin") {
+                        if (options.loggedIn) {
+                            var user = new User(data.user);
+                            _.bind(options.loggedIn, context)(user);
+                        }
+                    } else {
+                        if (options.loggedOut) {
+                            _.bind(options.loggedOut, context)(data);
+                        }
+                    }
+                })
+                .fail(function (data) {
+                    if (options.error) {
+                        _.bind(options.error, context)(data);
                     }
                 });
         },
