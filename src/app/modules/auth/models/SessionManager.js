@@ -28,10 +28,16 @@ module.exports = Marionette.Object.extend({
         /** max failed retries, before session checking is aborted. */
         maxRetries: 10,
 
+        sessionChannel: Radio.channel('session'),
+
+
         initialize: function(options) {
             console.log('init session mgr');
             this.mergeOptions(options, this.sessionOptions);
             this.currentUser = this.getDefaultUser();
+
+            this.sessionChannel.reply('login', this.login, this);
+            this.sessionChannel.reply('default', function() {console.log("got an unmatched channel request");}, this);
         },
 
 
@@ -103,7 +109,6 @@ module.exports = Marionette.Object.extend({
                 .done(function (data) {
                     var user = new User(JSON.parse(data.user));
                     that.currentUser = user; //TODO: announce user via radio
-                    that.events.trigger("user_login");
                     if (options.success) {
                         options.success(data.responseJSON);
                     }

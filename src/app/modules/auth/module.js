@@ -6,7 +6,7 @@ var AuthModule = Marionette.Module.extend({
   startWithParent: true,
 
   onStart: function(options) {
-  	console.log("auth module started");
+      console.log("auth module started");
       AuthModule.sessionMgr.start();
   },
 
