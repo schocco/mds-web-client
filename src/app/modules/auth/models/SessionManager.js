@@ -14,6 +14,25 @@ var Radio = require('backbone.radio');
  *
  * There should only be one instance of this class, which should only be accessed through module.js or backbone.radio.
  *
+ * -------------------------   ---------------------------------------------
+ * Announcements               Parameters
+ * -------------------------   ---------------------------------------------
+ * user:login:success          user - the User model
+ * user:login:error            data - ajax response data
+ * user:logout:success         user - the current user model
+ * user:logout:error           data - ajax response data
+ *
+ * ----------------  ----------------------------------------- -----------
+ * Request           Request params (in)                        reply
+ * ----------------  ----------------------------------------- -----------
+ * login             username
+ *                   password
+ *                   options.success (called with user model)
+ *                   options.error (called with xhr data)
+ * user:current                                                user model
+ *
+ *
+ *
  * @type {Marionette.object} Session instance
  */
 module.exports = Marionette.Object.extend({
@@ -36,29 +55,30 @@ module.exports = Marionette.Object.extend({
             this.mergeOptions(options, this.sessionOptions);
             this.currentUser = this.getDefaultUser();
 
-            this.sessionChannel.reply('login', this.login, this);
+            this.sessionChannel.on('login', this.login, this);
+            this.sessionChannel.reply('user:current', this.currentUser);
             this.sessionChannel.reply('default', function() {console.log("got an unmatched channel request");}, this);
         },
 
 
 
         /**
-         * Runs initial checks for existing sessions, cookies etc.
+         * Runs initial checks for existing sessions, cookies etc. and sends messages via the radio.
          */
         start: function() {
             this.checkAuthStatus({
                 loggedIn: function(user) {
-                    //TODO: trigger event
-                    console.log("logged in");
+                    this.onLoginSuccess(user);
+                    console.log("already logged in");
                     this.currentUser = user;
                 },
                 loggedOut: function() {
-                    //TODO: trigger event
+                    // send logout event in case some views still think user is logged in
+                    this.onLogoutSuccess();
                     console.log("logged out");
                 },
                 error: function(data) {
-                    //TODO: log error, trigger event?
-                    console.log("error " + data);
+                    console.error("could not determine user session status " + data);
                 }
             }, this);
         },
@@ -70,6 +90,10 @@ module.exports = Marionette.Object.extend({
             //TODO. implement
         },
 
+        /**
+         *
+         * @return {*|exports|module.exports} default anonymous user
+         */
         getDefaultUser: function() {
             return new User(); //anonymous user
         },
@@ -78,14 +102,15 @@ module.exports = Marionette.Object.extend({
         /** Terminates the session. */
         logout: function () {
             var uri = this.urlRoot + "logout/";
+            var that = this;
             $.getJSON(uri).done(
                 function (data) {
-                    //TODO: announce login via radio
+                    that.onLogoutSuccess(data);
+                    console.log("logged out");
                 })
                 .fail(function (data) {
-                    //TODO: announce logout failed via radio
+                    that.onLogoutError(data);
                     console.log("logout error");
-                    console.log(data);
                 });
         },
 
@@ -108,17 +133,49 @@ module.exports = Marionette.Object.extend({
             })
                 .done(function (data) {
                     var user = new User(JSON.parse(data.user));
-                    that.currentUser = user; //TODO: announce user via radio
+                    that.currentUser = user;
+                    that.onLoginSuccess(user);
                     if (options.success) {
                         options.success(data.responseJSON);
                     }
                 })
                 .fail(function (data) {
-                    //TODO: announce login failed via radio
+                    that.onLoginError(data);
                     if (options.error) {
                         options.error(data.responseJSON);
                     }
                 });
+        },
+
+        /**
+         * Announce logged in user via channel and start session monitoring.
+         * @param user the user returned by the api/new current user
+         */
+        onLoginSuccess: function(user) {
+            this.sessionChannel.request("user:login:success", user);
+            this.startMonitoring();
+        },
+
+        /**
+         * Announce that a login attempt has failed
+         * @param user
+         */
+        onLoginError: function(data) {
+            this.sessionChannel.request("user:login:error", data);
+        },
+
+        /**
+         * Announce that a the current user has logged out and stop the session monitor.
+         */
+        onLogoutSuccess: function(data) {
+            this.sessionChannel.request("user:logout:success", data);
+        },
+
+        /**
+         * Announce that the logout attempt has failed.
+         */
+        onLogoutError: function(data) {
+            this.sessionChannel.request("user:logout:error", data);
         },
 
         /**
@@ -160,6 +217,7 @@ module.exports = Marionette.Object.extend({
         errorCount: 0,
 
         /**
+         * Periodically checks if the users session has expired.
          * Repeatedly check the current session.
          * Stop checking when the user logs out or
          * when the session is invalid.
@@ -200,28 +258,6 @@ module.exports = Marionette.Object.extend({
                 });
             }
 
-        },
-
-        /**
-         * Periodically checks if the users session has expired.
-         * Also listen for login and logout events to update the current user accordingly.
-         * Trigger an event when the currentUser has changed so that views depending on the current user can
-         * react to the change.
-         * Display a message to the user that the session has expired.
-         * Load interval for session checks from module config.
-         */
-        startMonitoring: function () {
-            // set up event listeners
-            User.events.on("user_login", doSessionCheck, this);
-            User.events.on("user_logout", function () {
-                var anonymous = new User();
-                this.currentUser = anonymous;
-            }, this);
-            // only start if user is logged in
-            // otherwise just listen for login event and start monitoring after login occured
-            if (User.currentUser.isAuthenticated) {
-                this.doSessionCheck();
-            }
         }
     }
 );
