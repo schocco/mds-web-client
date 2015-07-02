@@ -6,6 +6,9 @@ var HeightProfileView = require('./TrailHeightProfile');
 var UXCModel = require('scales/models/UXCModel');
 var UDHModel = require('scales/models/UDHModel');
 
+var User = require('auth/models/User');
+var UserWidget = require('auth/views/UserWidget');
+
 /**
  * Detail view for a single trail object.
  */
@@ -14,7 +17,8 @@ module.exports = Marionette.LayoutView.extend({
     regions: {
         scoring:'[data-region=scoring]',
         map: '[data-region=map]',
-        heightProfile: '[data-region=heightProfile]'
+        heightProfile: '[data-region=heightProfile]',
+        trailCreator: '#trailcreator'
     },
 
     /** Maps trail types to scale types.  */
@@ -24,7 +28,8 @@ module.exports = Marionette.LayoutView.extend({
     },
     template: tpl,
 
-    initialize: function () {
+    initialize: function (options) {
+        this.mergeOptions(options, ['user']);
         this.listenTo(this.model, "change", this.render);
     },
 
@@ -42,8 +47,15 @@ module.exports = Marionette.LayoutView.extend({
             });
             this.scoring.show(scoringView);
         }
+        // display trail creator
+        if(this.model.has("owner")){
+            var user = new User({resource_uri: this.model.get('owner')});
+            user.fetch();
+            this.trailCreator.show(new UserWidget({model: user}));
+        }
+
         // map view
-        if (this.model.get("waypoints") !== undefined) {
+        if (this.model.has("waypoints")) {
             var mapView = new MapView();
             mapView.addFeature(this.model.get("waypoints"));
             mapView.setStart(this.model.get("start"));
@@ -51,7 +63,7 @@ module.exports = Marionette.LayoutView.extend({
             this.map.show(mapView);
         }
         // height profile
-        if (this.model.get("height_profile") !== undefined) {
+        if (this.model.has("height_profile")) {
             var heightProfileView = new HeightProfileView({profile: this.model.get("height_profile")});
             console.log("show height profile.");
             this.heightProfile.show(heightProfileView);

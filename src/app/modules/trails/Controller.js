@@ -6,10 +6,7 @@ var TrailListView = require('./views/Trails');
 var rootView = require('../../RootView');
 
 module.exports = Marionette.Controller.extend({
-    initialize: function() {
-    	//some init action
-    },
-    
+
     show: function() {
     	//just a placeholder
     },

@@ -1,5 +1,6 @@
 var Marionette = require('backbone.marionette');
 var tpl = require('./templates/index.hbs');
+var AuthPanelView = require('auth/views/AuthPanelView');
 
 /**
  * The RootView manages the complete page body and all its regions.
@@ -15,12 +16,14 @@ var RootView = Marionette.LayoutView.extend({
 	regions: {
 	    header: '[data-region=header]', // Not used right now
 		headerExtra: '[data-region=headerExtra]',
+		authPanel: '[data-region=authPanel]',
 	    body: '[data-region=body]',
 	    footer: '[data-region=footer]' // Not used right now
 	},
 	
 	onRender: function() {
 		console.log("root view rendering");
+		this.authPanel.show(new AuthPanelView());
 	}
 
 });

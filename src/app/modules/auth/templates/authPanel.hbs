@@ -1,0 +1,10 @@
+<div class="right auth-panel">
+    <span><i class="fa fa-user"></i>
+    {{#if authenticated}}
+        Logged in as
+    {{ else }}
+        <a href="#login">Log in</a>
+    {{/if}}
+    </span>
+    <span data-region="current-user"></span>
+</div>
