@@ -55,12 +55,9 @@ module.exports = Marionette.Object.extend({
             this.mergeOptions(options, this.sessionOptions);
             this.currentUser = this.getDefaultUser();
 
-            this.sessionChannel.on('login', this.login, this);
+            this.sessionChannel.reply('login', this.login, this);
             this.sessionChannel.reply('user:current', this.currentUser);
-            this.sessionChannel.reply('default', function() {console.log("got an unmatched channel request");}, this);
         },
-
-
 
         /**
          * Runs initial checks for existing sessions, cookies etc. and sends messages via the radio.
@@ -70,7 +67,6 @@ module.exports = Marionette.Object.extend({
                 loggedIn: function(user) {
                     this.onLoginSuccess(user);
                     console.log("already logged in");
-                    this.currentUser = user;
                 },
                 loggedOut: function() {
                     // send logout event in case some views still think user is logged in
@@ -152,8 +148,10 @@ module.exports = Marionette.Object.extend({
          * @param user the user returned by the api/new current user
          */
         onLoginSuccess: function(user) {
-            this.sessionChannel.request("user:login:success", user);
-            this.startMonitoring();
+            console.log(user);
+            this.currentUser = user;
+            this.sessionChannel.reply('user:current', this.currentUser); //XXX: needed, as it doesn't seem to be possible to evaluate methods on each request
+            this.sessionChannel.trigger("user:login:success", user);
         },
 
         /**
@@ -161,21 +159,22 @@ module.exports = Marionette.Object.extend({
          * @param user
          */
         onLoginError: function(data) {
-            this.sessionChannel.request("user:login:error", data);
+            this.sessionChannel.trigger("user:login:error", data);
         },
 
         /**
          * Announce that a the current user has logged out and stop the session monitor.
          */
         onLogoutSuccess: function(data) {
-            this.sessionChannel.request("user:logout:success", data);
+            this.sessionChannel.reply('user:current', this.currentUser); //XXX: needed, as it doesn't seem to be possible to evaluate methods on each request
+            this.sessionChannel.trigger("user:logout:success", data);
         },
 
         /**
          * Announce that the logout attempt has failed.
          */
         onLogoutError: function(data) {
-            this.sessionChannel.request("user:logout:error", data);
+            this.sessionChannel.trigger("user:logout:error", data);
         },
 
         /**
@@ -196,18 +195,18 @@ module.exports = Marionette.Object.extend({
             $.getJSON(uri).done(
                 function (data) {
                     if (data.status == "loggedin") {
-                        if (options.loggedIn) {
+                        if (options && options.loggedIn) {
                             var user = new User(data.user);
                             _.bind(options.loggedIn, context)(user);
                         }
                     } else {
-                        if (options.loggedOut) {
+                        if (options && options.loggedOut) {
                             _.bind(options.loggedOut, context)(data);
                         }
                     }
                 })
                 .fail(function (data) {
-                    if (options.error) {
+                    if (options && options.error) {
                         _.bind(options.error, context)(data);
                     }
                 });

@@ -18,7 +18,7 @@ module.exports = BaseModel.extend({
 
     isAuthenticated: function () {
         var un = this.get("username");
-        return un !== "anonymous" && !_.isEmpty(un);
+        return !(_.isEmpty(un) || un == "anonymous");
     }
 
 });

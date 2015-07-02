@@ -1,8 +1,10 @@
-<span class="titip-top-right titip-default titip-fade button">
-    <img src="/static/img/favicon.png" style="height:1.2rem; vertical-align:middle;"/> {{ username }}
+<span class="titip-{{ position }} titip-default titip-fade {{ buttonclass }}">
+    {{#if showicon }}
+    <img src="/static/img/favicon.png" style="height:1.2rem; vertical-align:middle;"/>
+    {{/if}}{{ username }}
     <div style="opacity:1;" class="titip-content">
         <div style="width:250px; white-space:normal; text-align:left; cursor:auto;" class="clearfix">
-                    <span style="width: 62px; margin-right: 10px; margin-bottom: 5px; height: 62px;" class="thumbnail pull-left">
+                    <span style="width: 62px; margin-right: 10px; margin-bottom: 5px; height: 62px;" class="thumbnail left">
                         <img src="/static/img/favicon.png" style="margin-top: 5px;">
                     </span>
             <h4>{{ first_name }} {{last_name }}</h4>
@@ -13,3 +15,4 @@
         </div>
     </div>
 </span>
+
