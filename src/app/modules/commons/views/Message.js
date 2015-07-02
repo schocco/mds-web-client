@@ -29,12 +29,21 @@ module.exports = Marionette.ItemView.extend({
     },
 
     /**
-     * Remove the text from the element and set element to invisible.
+     * Remove the text and message classes from the element.
      * Should be called when the user closes the dialogue or when the message is no longer appropriate.
      */
     close: function() {
         this.$el.html("");
-        this.el.removeClass(this.type2class[this.type]);
+        this.removeClasses();
+    },
+
+    /**
+     * Removes message specific classes from element, but keeps all others.
+     */
+    removeClasses: function() {
+        _.each(this.type2class, function(val) {
+            this.$el.removeClass(val);
+        }, this);
     },
 
     show: function() {
@@ -43,6 +52,7 @@ module.exports = Marionette.ItemView.extend({
             var template = _.template("<<%= wrapper %>><%= message %></<%= wrapper %>>");
             content = template({wrapper: this.wrapper, message: this.message});
         }
+        this.removeClasses();
         this.$el.html(content);
         this.$el.addClass(this.type2class[this.type]);
     }

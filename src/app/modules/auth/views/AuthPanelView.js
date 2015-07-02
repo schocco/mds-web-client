@@ -17,7 +17,7 @@ module.exports = Marionette.LayoutView.extend({
     },
 
     triggers: {
-        "click #test": "test:clicked"
+        "click #logout": "logout:click"
     },
 
     regions: {
@@ -27,6 +27,15 @@ module.exports = Marionette.LayoutView.extend({
     initialize: function() {
         this.sessionChannel.on("user:login:success", this.render);
         this.sessionChannel.on("user:login:error", this.render);
+        this.sessionChannel.on("user:logout:success", this.render);
+    },
+
+    /**
+     * Ends the user session.
+     */
+    onLogoutClick: function() {
+        console.log("logout click");
+        this.sessionChannel.request("logout");
     },
 
     onBeforeRender: function() {

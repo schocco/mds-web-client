@@ -29,6 +29,7 @@ var Radio = require('backbone.radio');
  *                   password
  *                   options.success (called with user model)
  *                   options.error (called with xhr data)
+ * logout
  * user:current                                                user model
  *
  *
@@ -56,6 +57,7 @@ module.exports = Marionette.Object.extend({
             this.currentUser = this.getDefaultUser();
 
             this.sessionChannel.reply('login', this.login, this);
+            this.sessionChannel.reply('logout', this.logout, this);
             this.sessionChannel.reply('user:current', this.currentUser);
         },
 
@@ -166,6 +168,7 @@ module.exports = Marionette.Object.extend({
          * Announce that a the current user has logged out and stop the session monitor.
          */
         onLogoutSuccess: function(data) {
+            this.currentUser = this.getDefaultUser();
             this.sessionChannel.reply('user:current', this.currentUser); //XXX: needed, as it doesn't seem to be possible to evaluate methods on each request
             this.sessionChannel.trigger("user:logout:success", data);
         },
