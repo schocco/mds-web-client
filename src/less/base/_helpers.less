@@ -261,6 +261,20 @@
   background-color: lightyellow;
 }
 
+.overlay {
+  position: fixed;
+  width: 50%;
+  left: 50%;
+  margin-left: -25%;
+  z-index: 99;
+  box-shadow: 10px 10px 5px #888888;
+}
+
+
+#notification {
+  .overlay();
+}
+
 // can be used to remove link style from link contents, e.g. when wrpping divs in a tags
 a.nolink {
   color: @base-font-color;

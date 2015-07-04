@@ -2,6 +2,7 @@ var Marionette = require('backbone.marionette');
 var User = require('./User');
 var $ = require('jquery');
 var Radio = require('backbone.radio');
+var _ = require('lodash');
 
 /**
  * A session management object which relies on the User model.
@@ -119,11 +120,13 @@ module.exports = Marionette.Object.extend({
          * @param options
          * @param options.success (callback function)
          * @param options.error (callback function)
+         * @param options.context context for the callback method (what `this` refers to)
          * */
         login: function (username, password, options) {
             var uri = this.urlRoot + "login/";
             var that = this;
             var loginData = {username: username, password: password};
+            var callbackContext = options.context === undefined ? this : options.context;
             $.ajax(uri, {
                 data: JSON.stringify(loginData),
                 type: "POST",
@@ -134,13 +137,13 @@ module.exports = Marionette.Object.extend({
                     that.currentUser = user;
                     that.onLoginSuccess(user);
                     if (options.success) {
-                        options.success(data.responseJSON);
+                        _.bind(options.success, callbackContext)(data.responseJSON);
                     }
                 })
                 .fail(function (data) {
                     that.onLoginError(data);
                     if (options.error) {
-                        options.error(data.responseJSON);
+                        _.bind(options.error, callbackContext)(data.responseJSON);
                     }
                 });
         },

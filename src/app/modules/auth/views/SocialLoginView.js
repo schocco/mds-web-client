@@ -29,6 +29,7 @@ module.exports = Marionette.CompositeView.extend({
     },
 
     sessionChannel: Radio.channel('session'),
+    notificationChannel: Radio.channel('notification'),
 
     initialize: function (options) {
         this.mergeOptions(options, this.viewOptions);
@@ -36,10 +37,9 @@ module.exports = Marionette.CompositeView.extend({
 
     /**
      * Treat enter key as form submission.
-     * @param e
+     * @param event
      */
     onFormKeydown: function(event) {
-        console.log(event);
       if(event.which == 13 || event.keyCode == 13){
           this.onLoginClicked();
           event.preventDefault();
@@ -54,7 +54,8 @@ module.exports = Marionette.CompositeView.extend({
         var password = this.ui.passwordField.val();
         this.sessionChannel.request('login', username, password, {
             error: this.onLoginError,
-            success: this.onLoginSuccess
+            success: this.onLoginSuccess,
+            context: this
         });
     },
 
@@ -68,12 +69,6 @@ module.exports = Marionette.CompositeView.extend({
     onLoginSuccess: function() {
         var msg = new Message({el: "#formMessage", type:"info",wrapper:"p",message:"You are now logged in."});
         msg.show();
-        this.clearForm();
-    },
-
-    clearForm: function() {
-        this.ui.passwordField.val("");
-        this.ui.usernameField.val("");
     },
 
     childViewOptions: {
