@@ -260,6 +260,12 @@
   background-color: lightyellow;
 }
 
+// can be used to remove link style from link contents, e.g. when wrpping divs in a tags
+a.nolink {
+  color: @base-font-color;
+  text-decoration:none; //FIXME: headers in div still with underline
+}
+
 // Animations
 .animate {
   .animate(1s);

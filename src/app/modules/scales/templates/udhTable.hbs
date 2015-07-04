@@ -20,7 +20,7 @@
                         {{ ../total_length }}
                     {{/if}}
                 </td>
-                <td style="text-align:right;">
+                <td class="text-right">
                     <span class="titip-left titip-wrapped-large">{{ score.total_length.result }} <span class="titip-content">{{ score.total_length.explanation }}</span></span>
                 </td>
             </tr>
@@ -36,7 +36,7 @@
                         {{round (abs ../avg_slope) }}
                     {{/if}}
                 </td>
-                <td style="text-align:right;">
+                <td class="text-right">
                     <span class="titip-left titip-wrapped-large">{{ score.avg_slope.result }} <span class="titip-content">{{ score.avg_slope.explanation }}</span></span>
                 </td>
             </tr>
@@ -56,7 +56,7 @@
                         {{ ../max_difficulty }}
                     {{/if}}
                 </td>
-                <td style="text-align:right;">
+                <td class="text-right">
                     <span class="titip-left titip-wrapped-large">{{ score.max_difficulty.result }} <span class="titip-content">{{ score.max_difficulty.explanation }}</span></span>
                 </td>
             </tr>
@@ -76,14 +76,14 @@
                         {{ ../avg_difficulty }}
                     {{/if}}
                 </td>
-                <td style="text-align:right;">
+                <td class="text-right">
                     <span class="titip-left titip-wrapped-large">{{ score.avg_difficulty.result }} <span class="titip-content">{{ score.avg_difficulty.explanation }}</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td colspan=2>Total score</td>
-                <td style="text-align:right; font-weight: 600;">{{ score.total_score }}</td>
+                <td class="text-right" style="font-weight: 600;">{{ score.total_score }}</td>
             </tr>
 
             </tbody>
