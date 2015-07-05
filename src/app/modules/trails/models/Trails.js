@@ -6,5 +6,5 @@ var Trail = require('./Trail');
  */
 module.exports = BaseCollection.extend({
 	model: Trail,
-	url : "/api/v1/trails/?format=json"
+	baseUrl : "/api/v1/trails/"
 });

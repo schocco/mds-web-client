@@ -1,0 +1,14 @@
+<p>
+    {{#if hasPages }}
+        <a href="#previous" class="label prevPage {{#unless hasPrevious }}placeholder{{/unless}}"><i class="fa fa-chevron-left"></i></a>
+        {{#each pages }}
+            {{#equals ../currentPage this }}
+                <span class="label red">{{ this }}</span>
+            {{else}}
+                <a href="#{{ this}}" class="label pageLink">{{ this }}</a>
+            {{/equals}}
+        {{/each}}
+        <a href="#next" class="label nextPage {{#unless hasNext }}placeholder{{/unless}}"><i class="fa fa-chevron-right"></i></a>
+    {{/if}}
+
+</p>

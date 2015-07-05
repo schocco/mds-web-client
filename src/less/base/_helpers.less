@@ -3,69 +3,161 @@
 // ==========================================================================
 
 // General Resets
-.no-margin { margin: 0; }
-.no-padding { padding: 0; }
-.no-float { float: none; }
-.no-background { background: transparent; }
-.no-border { border: 0; }
+.no-margin {
+  margin: 0;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.no-float {
+  float: none;
+}
+
+.no-background {
+  background: transparent;
+}
+
+.no-border {
+  border: 0;
+}
 
 // Font Weights
-.font-thin { font-weight: @font-thin; }
-.font-light { font-weight: @font-light; }
-.font-regular { font-weight: @font-regular; }
-.font-medium { font-weight: @font-medium; }
-.font-semi-bold { font-weight: @font-semi-bold; }
-.font-bold { font-weight: @font-bold; }
-.font-extra-bold { font-weight: @font-extra-bold; }
-.font-ultra-bold { font-weight: @font-ultra-bold; }
+.font-thin {
+  font-weight: @font-thin;
+}
+
+.font-light {
+  font-weight: @font-light;
+}
+
+.font-regular {
+  font-weight: @font-regular;
+}
+
+.font-medium {
+  font-weight: @font-medium;
+}
+
+.font-semi-bold {
+  font-weight: @font-semi-bold;
+}
+
+.font-bold {
+  font-weight: @font-bold;
+}
+
+.font-extra-bold {
+  font-weight: @font-extra-bold;
+}
+
+.font-ultra-bold {
+  font-weight: @font-ultra-bold;
+}
 
 // Font Styles
-.font-normal { font-style: normal; }
-.font-italic { font-style: italic; }
-.font-outline { text-shadow: -1px 0 #333, 0 1px #333, 1px 0 #333, 0 -1px #333; }
+.font-normal {
+  font-style: normal;
+}
+
+.font-italic {
+  font-style: italic;
+}
+
+.font-outline {
+  text-shadow: -1px 0 #333, 0 1px #333, 1px 0 #333, 0 -1px #333;
+}
 
 // Text Modifications
-.uppercase { text-transform: uppercase; }
-.lowercase { text-transform: lowercase; }
-.capitalize { text-transform: capitalize; }
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
 
 // Text Alignments
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-.text-center { text-align: center; }
-.text-justify { text-align: justify; }
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-justify {
+  text-align: justify;
+}
 
 // Positions
-.relative { position: relative; }
-.absolute { position: absolute; }
-.static { position: static; }
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.static {
+  position: static;
+}
 
 // widths
 .width-20 {
   width: 20%;
 }
+
 .width-40 {
   width: 40%;
 }
+
 .width-60 {
   width: 60%;
 }
+
 .width-80 {
   width: 80%;
 }
+
 .width-100 {
   width: 100%;
 }
 
 // Display Types
-.block { display: block; }
-.inline-block { display: inline-block; }
-.inline { display: inline; }
-.none { display: none; }
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.inline {
+  display: inline;
+}
+
+.none {
+  display: none;
+}
 
 // Floats
-.left { float: left; }
-.right { float: right; }
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
 
 // Alignments
 .center-element {
@@ -96,6 +188,7 @@
     padding: 0;
   }
 }
+
 .list-inline {
   list-style: none;
   margin: 0;
@@ -112,6 +205,7 @@
   float: left;
   margin-right: 20px;
 }
+
 .img-right {
   float: right;
   margin-left: 20px;
@@ -126,7 +220,10 @@
     padding-top: 8px;
   }
 }
-.field { width: 100%; }
+
+.field {
+  width: 100%;
+}
 
 // Custom Buttons
 .button {
@@ -140,34 +237,60 @@
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
-  &:hover { background: #fafafa; }
-  &:active { background: #fff; }
+  &:hover {
+    background: #fafafa;
+  }
+  &:active {
+    background: #fff;
+  }
 }
+
 .button-active {
   .button();
   background-color: #d9d9d9;
-  &:hover { background: #e3e3e3; }
+  &:hover {
+    background: #e3e3e3;
+  }
 }
+
 .button-secondary {
   // Add your styles here
 }
 
 .button-facebook {
   .button();
-  &:hover { background: #0000ff; color: white }
-  &:active { background: #0000ff; color: white }
+  &:hover {
+    background: #0000ff;
+    color: white
+  }
+  &:active {
+    background: #0000ff;
+    color: white
+  }
 }
 
 .button-twitter {
   .button();
-  &:hover { background: #2daebf; color: white }
-  &:active { background: #2daebf; color: white }
+  &:hover {
+    background: #2daebf;
+    color: white
+  }
+  &:active {
+    background: #2daebf;
+    color: white
+  }
 }
 
 .button-google {
   .button();
-  &:hover { background: #ff0000; color: white }
-  &:active { background: #ff0000; color: white }
+  &:hover {
+    background: #ff0000;
+    color: white
+  }
+  &:active {
+    background: #ff0000;
+    color: white
+  }
 }
 
 .button-link {
@@ -176,8 +299,12 @@
   border: 0;
   background: transparent;
   padding: 0;
-  &:hover { text-decoration: none; }
-  &:active { outline: 0; }
+  &:hover {
+    text-decoration: none;
+  }
+  &:active {
+    outline: 0;
+  }
 }
 
 .disabled {
@@ -212,7 +339,9 @@
     border: 0;
     background: transparent;
     display: block;
-    &:focus { outline: 0; }
+    &:focus {
+      outline: 0;
+    }
   }
 }
 
@@ -245,17 +374,19 @@
   }
 }
 
-.error {
+.message.error {
   color: darkred;
   border-color: darkred;
   background-color: #f8d5d8;
 }
-.info {
+
+.message.info {
   color: darkgreen;
   border-color: green;
   background-color: #ddffdd;
 }
-.warning {
+
+.message.warning {
   color: #ee7000;
   border-color: #ee7000;
   background-color: lightyellow;
@@ -270,6 +401,58 @@
   box-shadow: 10px 10px 5px #888888;
 }
 
+// labels
+.label {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #ffffff;
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #3F3F49;
+  padding: 4px 6px;
+  border-radius: 3px;
+}
+
+a.label {
+  text-decoration: none;
+}
+
+.label.placeholder {
+  pointer-events: none;
+  cursor: default;
+  background: none;
+  color: transparent;
+}
+
+.label.red {
+  background-color: @highlight-color-dark;
+}
+
+.label.lightred {
+  background-color: @highlight-color-light;
+}
+
+.label.orange {
+  background-color: #F16863;
+}
+
+.label.green {
+  background-color: #91bd09;
+}
+
+.label.blue {
+  background-color: #2daebf;
+}
+
+.label.yellow {
+  background-color: #ffb515;
+}
+
+.label.flat {
+  border-bottom: none;
+  box-shadow: none;
+}
 
 #notification {
   .overlay();
@@ -278,13 +461,14 @@
 // can be used to remove link style from link contents, e.g. when wrpping divs in a tags
 a.nolink {
   color: @base-font-color;
-  text-decoration:none; //FIXME: headers in div still with underline
+  text-decoration: none; //FIXME: headers in div still with underline
 }
 
 // Animations
 .animate {
   .animate(1s);
 }
+
 .animate-infinite {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;

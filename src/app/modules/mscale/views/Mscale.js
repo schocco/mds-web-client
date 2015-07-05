@@ -1,6 +1,5 @@
 var Marionette = require('backbone.marionette');
 var tpl = require('../templates/item.hbs');
-var collectionTpl = require('../templates/collection.hbs');
 var $ = require('jquery');
 
 /**

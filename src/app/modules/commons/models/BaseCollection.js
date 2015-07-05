@@ -1,4 +1,6 @@
 var Backbone = require('backbone');
+var _ = require('lodash');
+var $ = require('jquery');
 
 /**
  * A django-tatsypie specific base collection class which parses response
@@ -33,7 +35,7 @@ module.exports = Backbone.Collection.extend({
 	},
 
 	url : function() {
-		urlparams = {
+		var urlparams = {
 				offset : this.settings.offset,
 				limit : this.getPageSize()
 		};
@@ -73,12 +75,12 @@ module.exports = Backbone.Collection.extend({
 	},
 
 	getLastPage : function() {
-		getPage(this.getTotalPages());
+		this.getPage(this.getTotalPages());
 	},
 
 	getNextPage : function() {
 		if (this.hasNextPage()) {
-			nxt = this.urlToDict(this.recentMeta.next);
+			var nxt = this.urlToDict(this.recentMeta.next);
 			this.settings.offset = nxt.offset;
 			this.fetch({
 				reset : true
@@ -88,7 +90,7 @@ module.exports = Backbone.Collection.extend({
 
 	getPreviousPage : function() {
 		if (this.hasPreviousPage()) {
-			prev = this.urlToDict(this.recentMeta.previous);
+			var prev = this.urlToDict(this.recentMeta.previous);
 			this.settings.offset = prev.offset;
 			this.fetch({
 				reset : true
@@ -174,7 +176,7 @@ module.exports = Backbone.Collection.extend({
      * @return {object} dictionary with extracted key-value pairs
 	 */
 	urlToDict : function(uri) {
-		queryParams = uri.substr(uri.lastIndexOf("?") + 1);
+		var queryParams = uri.substr(uri.lastIndexOf("?") + 1);
 		return JSON.parse('{"'	+ queryParams.replace(/&/g, '","').replace(/=/g, '":"')	+ '"}');
 	},
 
