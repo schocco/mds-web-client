@@ -410,7 +410,7 @@
   white-space: nowrap;
   vertical-align: baseline;
   background-color: #3F3F49;
-  padding: 4px 6px;
+  padding: 3px 6px;
   border-radius: 3px;
 }
 
@@ -425,16 +425,16 @@ a.label {
   color: transparent;
 }
 
+.label.grey {
+  background-color: #7b98bc;
+}
+
 .label.red {
   background-color: @highlight-color-dark;
 }
 
 .label.lightred {
   background-color: @highlight-color-light;
-}
-
-.label.orange {
-  background-color: #F16863;
 }
 
 .label.green {
@@ -452,6 +452,13 @@ a.label {
 .label.flat {
   border-bottom: none;
   box-shadow: none;
+}
+
+.label.XC {
+  .label.blue();
+}
+.label.DH {
+  .label.lightred();
 }
 
 #notification {

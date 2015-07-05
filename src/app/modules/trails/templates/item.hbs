@@ -5,7 +5,10 @@
             <p>{{ description }}</p>
         </div>
         <div class="trail-symbols col-3">
-            <span class="right">{{round length.km 2 }} km<br>{{ type }}</span>
+            <span class="right text-right">
+                <span class="label">{{round length.km 2 }} km</span><br>
+                <span class="label {{ typeShort }}">{{ typeShort }}</span>
+                <span class="label">{{ totalScore }} / 40</span></span>
         </div>
     </div>
 </a>

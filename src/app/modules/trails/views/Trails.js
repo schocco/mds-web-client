@@ -13,6 +13,9 @@ module.exports = Marionette.CompositeView.extend({
 	childViewContainer: '#trails',
 	paginationSelector: 'div.pagination',
 
+    /**
+     * Render paginationviews in divs above and below the items.
+     */
 	showPagination: function() {
         var addPages = _.bind(function(num, elem) {
             console.log(elem);
