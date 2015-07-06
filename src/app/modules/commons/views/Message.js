@@ -17,7 +17,7 @@ module.exports = Marionette.ItemView.extend({
     },
 
     /**
-     *
+     * @param el element id where the message should be displayed.
      * @param options display options
      * @param options.message the message to display
      * @param options.type the message type (one of info/warning/error)
@@ -57,11 +57,8 @@ module.exports = Marionette.ItemView.extend({
      * If a timeout attribute is set, then the message will be auto-closed after the timeout.
      */
     show: function() {
-        var content = this.message;
-        if(this.wrapper !== undefined) {
-            var template = _.template('<<%= wrapper %>><%= message %><a href="" class="right" style="margin-left:1rem;"><i class="fa fa-close" id="closemsg"></i></a></<%= wrapper %>>');
-            content = template({wrapper: this.wrapper, message: this.message});
-        }
+        var template = _.template('<% if(wrapper){ %><<%= wrapper %>><% } %><%= message %><a href="" class="right" style="margin-left:1rem;"><i class="fa fa-close" id="closemsg"></i></a><% if(wrapper){ %></<%= wrapper %>><% } %>');
+        var content = template({wrapper: this.wrapper, message: this.message});
         this.removeClasses();
         this.$el.hide();
         this.$el.html(content).fadeIn(300);

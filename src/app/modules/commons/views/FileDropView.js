@@ -1,0 +1,123 @@
+var Marionette = require('backbone.marionette');
+var tpl = require('../templates/filedrop.hbs');
+var $ = require('jquery');
+var Uploader = require('html5-uploader');
+var _ = require('lodash');
+
+module.exports = Marionette.ItemView.extend({
+
+    template: tpl,
+    ui: {
+        "dropzone": "#dropzone",
+        "preview": "#preview",
+        "fileList": "#fileList",
+        "progress": "#progress"
+    },
+
+    templateHelpers: function() {
+        return {
+            single: this.single
+        };
+    },
+
+    triggers: {
+        "click #uploadBtn": "upload:clicked",
+        "click #clearBtn": "clear:clicked"
+    },
+
+    defaults: {
+        single: false
+    },
+
+    initialize: function (options) {
+        this.mergeOptions(options, ['url', 'type', 'name', 'fileFilter', 'single']);
+        this.uploaderOptions = {
+            el: '#dropzone',
+            url: this.url
+        };
+        _.merge(this.uploaderOptions, {name: this.name});
+    },
+
+    onShow: function() {
+        this.uploader =  new Uploader(this.uploaderOptions);
+        this.uploader.on('files:added', _.bind(function(files){
+            this.triggerMethod("files:added", files);
+        }, this));
+        this.uploader.on('file:preview', _.bind(function(file, $img){
+            this.triggerMethod("file:preview", file, $img);
+        }, this));
+        this.uploader.on('files:cleared', _.bind(function(){
+            this.triggerMethod("files:cleared");
+        }, this));
+        this.uploader.on('upload:progress', _.bind(function(progress){
+            this.triggerMethod("upload:progress", progress);
+        }, this));
+        this.uploader.on('upload:done', _.bind(function(response){
+            this.triggerMethod("upload:done", response);
+        }, this));
+        this.uploader.on('error', _.bind(function(e){
+            this.triggerMethod("error", e);
+        }, this));
+        this.uploader.on('dragover', _.bind(function(f){
+            this.triggerMethod("dragover", f);
+        }, this));
+        this.uploader.on('dragleave', _.bind(function(f){
+            this.triggerMethod("dragleave", f);
+        }, this));
+    },
+
+    onFilesAdded: function(files) {
+        if(this.single) {
+            //immediately start uploading first files, ignore others
+            this.uploader.files = this.uploader.getFiles()[0];
+            this.uploader.upload();
+        }
+    },
+
+    onFilePreview: function(file, $img) {
+        if ($img) {
+            this.ui.preview.append($img);
+        } else {
+            this.ui.fileList.append("<li>" + file.name + "</li>");
+        }
+
+    },
+
+    onFilesCleared: function() {
+        this.ui.preview.html("");
+        this.ui.fileList.html("");
+    },
+
+    onUploadProgress: function(progress) {
+        this.ui.progress.html(progress);
+    },
+
+    onUploadDone: function(response) {
+        this.onClearClicked();
+    },
+
+    onError: function(error) {
+        if (error.status) console.error(error.status);
+        console.error(error.message);
+    },
+
+    onDragover: function() {
+    },
+
+    onDragleave: function() {
+    },
+
+    onUploadClicked: function() {
+        this.uploader.upload();
+    },
+    onClearClicked: function() {
+        this.uploader.clearFiles();
+    },
+
+    getFiles: function() {
+        return this.uploader.getFiles();
+    }
+
+
+
+});

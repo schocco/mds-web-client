@@ -1,0 +1,45 @@
+<div class="container-full">
+    <h2>Trail Upload</h2>
+
+    <p id="uploadmessage"></p>
+</div>
+
+<div class="container-full">
+    <div data-region="upload"></div>
+</div>
+
+<div id="infoRow" style="display: none">
+    <div class="container-full">
+        <h3>Trail Info</h3>
+
+        <div id="formErrors"></div>
+
+        <form id="infoForm" class="form-block" method="post" action="#/trails/upload">
+            <div>
+                <label for="name">Name</label> <input name="name" id="name_field" type="text"/>
+            </div>
+            <div>
+                <label for="type">Track type</label>
+                <select name="type">
+                    {{# each trailTypes }}
+                        <option value="{{ this }}">{{ this }}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div>
+                <label for="description">Description</label> <textarea name="description" type="text" class="width-80"
+                                                                       rows="8"
+                                                                       placeholder="provide some characteristics of the trail, such as underground type"></textarea>
+            </div>
+            <div>
+                <a href="#" class="button" id="saveBtn"><i class="fa fa-save"></i> Save trail</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="container-full">
+        <h3>Map preview</h3>
+    </div>
+    <div data-region="map">
+    </div>
+</div>

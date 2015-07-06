@@ -26,6 +26,8 @@ Marionette.Region.prototype.attachHtml = function (view) {
     this.$el.fadeIn(200);
 };
 
+Controller.setupCsrfHeader();
+
 var App = Marionette.Application.extend({
     initialize: function () {
         this.rootView = RootView;
