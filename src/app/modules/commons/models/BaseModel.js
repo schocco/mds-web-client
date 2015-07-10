@@ -25,9 +25,9 @@ module.exports = Backbone.Model.extend({
 
 
 	/**
-	 * The uri used in the client views. Defaults to prefix + model.id
+	 * The uri used in the client views. Defaults to prefix + model.id + /
 	 */
-	get_url : function() {
+	getClientUri : function() {
 		return this.prefix + this.get('id') + "/";
 	}
 

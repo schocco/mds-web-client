@@ -30,15 +30,21 @@ module.exports = Marionette.ItemView.extend({
         this.mergeOptions(options, ["message", "type", "wrapper", "timeout"]);
     },
 
+
     /**
      * Remove the text and message classes from the element.
      * Should be called when the user closes the dialogue or when the message is no longer appropriate.
+     * @param callback callback to be called when closing is done
      */
-    close: function() {
+    close: function(callback) {
+        clearTimeout(this.timerId); // cancel timer to avoid that other el content gets deleted later
         var removeClasses = _.bind(this.removeClasses, this);
         this.$el.fadeOut(300, function(){
             $(this).html("");
             removeClasses();
+            if(callback !== undefined) {
+                callback();
+            }
         });
     },
 
@@ -70,7 +76,8 @@ module.exports = Marionette.ItemView.extend({
         });
         if(this.timeout !== undefined && this.timeout > 500) {
             var close = _.bind(this.close, this);
-            setTimeout(close, this.timeout);
+            this.timerId = setTimeout(close, this.timeout);
+            console.log("timerid = " + this.timerId);
         }
     }
 

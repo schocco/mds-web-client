@@ -4,6 +4,14 @@ var $ = require('jquery');
 var Uploader = require('html5-uploader');
 var _ = require('lodash');
 
+/**
+ * Upload view which is basically a wrapper around the html5-uploader package.
+ * Displays an upload field and a progress bar if supported by the browser and triggers events on the view so that
+ * parent views can react on them.
+ * The triggered events are the same as described in the html5-uploader docs.
+ *
+ * When multi-file uploads are allowed, the view will render a list of selected files and display preview images for image files.
+ */
 module.exports = Marionette.ItemView.extend({
 
     template: tpl,
@@ -29,8 +37,16 @@ module.exports = Marionette.ItemView.extend({
         single: false
     },
 
+    /**
+     *
+     * @param options upload and view options
+     * @param options.url the url where the file should be posted to
+     * @param options.name name of the file in the post request
+     * @param options.fileFilter function for filtering files (not yet implemented)
+     * @param options.single set this to true to allow only a single file to be uploaded at once (default is false)
+     */
     initialize: function (options) {
-        this.mergeOptions(options, ['url', 'type', 'name', 'fileFilter', 'single']);
+        this.mergeOptions(options, ['url', 'name', 'fileFilter', 'single']);
         this.uploaderOptions = {
             el: '#dropzone',
             url: this.url

@@ -11,7 +11,7 @@ module.exports = Marionette.ItemView.extend({
 		// using a function instead a dict here allows access to the
 		// model before serialization
 		return {
-			clientUri: this.model.get_url(),
+			clientUri: this.model.getClientUri(),
             typeShort: this.model.getShortType(),
             totalScore: this.getScore()
 		};

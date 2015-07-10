@@ -6,6 +6,11 @@ var MessageView = require('commons/views/Message');
 var Trail = require('trails/models/Trail');
 var $ = require('jquery');
 
+/**
+ * The main upload view.
+ * Initially only shows the upload button and displays form and map when transformation of gpx to geojson completed.
+ * If the gpx could not be transformed, the view stays unchanged but displays an error message.
+ */
 module.exports = Marionette.LayoutView.extend({
    template: tpl,
 
@@ -27,60 +32,102 @@ module.exports = Marionette.LayoutView.extend({
       "click #saveBtn": "save:clicked"
     },
 
+    processingMsg: null,
+
+    /**
+     * Display subviews.
+     */
     onShow: function() {
         var uploadView = new FileDropView({
             url: "/api/v1/trails/load-gpx/",
             name: "gpx",
             single: true
         });
-        var msg = new MessageView({
-            el: "#uploadmessage",
-            type: "info",
-            message: "file is being processed",
-            timeout: 900
-        });
         uploadView.on("upload:done", _.bind(function(response) {
-            msg.show();
-            this.upload.reset();
+            this.processingMsg = new MessageView({
+                el: "#uploadinfo",
+                type: "info",
+                message: "file is being processed...",
+                timeout: 2000
+            });
+            this.processingMsg.show();
             var result = JSON.parse(response);
             this.pollForResult(result.task_id);
-            this.ui.info.show(300);
         }, this));
         this.upload.show(uploadView);
     },
 
+    /**
+     * Submits the form.
+     */
     onSaveClicked: function() {
         this.submitForm();
     },
 
+    /**
+     * Regularly polls the server for the geojson of the uploaded gpx file.
+     * @param task_id
+     */
     pollForResult: function(task_id){
         var url = this.trail.urlRoot + "load-gpx/result/" + task_id + "/";
         var that = this;
         var xhr = $.getJSON(url)
             .done(function(data, textStatus, xhr){
                 if(xhr.status == 204){
-                    console.log("try again");
                     setTimeout(function() {
                         that.pollForResult(task_id);
                     }, 400);
                 } else if(xhr.status == 200){
+                    that.processingMsg.close();
                     that.trail.set({waypoints: data});
+                    that.upload.reset(); // hide upload button
+                    that.ui.info.show(300);
                     that.showMap();
                 }
             })
             .fail(function(xhr){
-                that.showMessage({msg:xhr.responseJSON.error, type:that.ERROR});
+                var msg = new MessageView({
+                    el: "#uploaderror",
+                    type: "error",
+                    message: xhr.responseJSON.error
+                });
+                that.processingMsg.close(_.bind(msg.show, msg));
             });
     },
 
+    /**
+     * Stores the form values in the trail model and saves it on the server.
+     * If successful, the user is redirected to the trail detail view to perform the rating.
+     */
     submitForm: function() {
             var fields = $("#infoForm").serializeArray();
             $.each(fields, _.bind(function(i, field){
                 this.trail.set(field.name, field.value);
             }, this));
-            this.trail.save();
+            this.trail.save(null, {
+                success: _.bind(this.showDetailView, this),
+                error: _.bind(function(model, response) {
+                    console.log(response);
+                    var msg = new MessageView({
+                        el: "#formErrors",
+                        type: "error",
+                        message: response.responseJSON.error
+                    });
+                    msg.show();
+                }, this)
+            });
     },
 
+    /**
+     * Redirects user to the trail detail view of the created trail.
+     */
+    showDetailView: function() {
+        this.navigate(this.trail.getClientUri());
+    },
+
+    /**
+     * Displays the uploaded trail on the map.
+     */
     showMap: function() {
         var mapView = new MapView();
         mapView.addFeature(this.trail.get("waypoints"));

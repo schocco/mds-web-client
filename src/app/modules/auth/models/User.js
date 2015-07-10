@@ -12,7 +12,7 @@ module.exports = BaseModel.extend({
         username: "anonymous"
     },
 
-    get_url: function () {
+    getClientUri: function () {
         return this.prefix + this.get('name') + "/";
     },
 

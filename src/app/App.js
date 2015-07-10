@@ -54,6 +54,10 @@ app.on("start", function (options) {
         controller: Controller
     });
     Backbone.history.start();
+    // add navigate method to views for easy access
+    Backbone.View.prototype.navigate = function (loc) {
+        app.router.navigate(loc, true);
+    };
 });
 
 
