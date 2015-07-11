@@ -69,6 +69,9 @@ module.exports = Marionette.CompositeView.extend({
     onLoginSuccess: function() {
         var msg = new Message({el: "#formMessage", type:"info",wrapper:"p",message:"You are now logged in."});
         msg.show();
+        if(this.next !== undefined) {
+            this.navigate("#" + this.next);
+        }
     },
 
     childViewOptions: {
