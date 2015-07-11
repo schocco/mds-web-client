@@ -85,7 +85,7 @@ module.exports = Marionette.ItemView.extend({
     onFilesAdded: function(files) {
         if(this.single) {
             //immediately start uploading first files, ignore others
-            this.uploader.files = this.uploader.getFiles()[0];
+            this.uploader.files = [this.uploader.getFiles()[0]];
             this.uploader.upload();
         }
     },
@@ -105,16 +105,21 @@ module.exports = Marionette.ItemView.extend({
     },
 
     onUploadProgress: function(progress) {
-        this.ui.progress.html(progress);
+        var value = progress + " %";
+        console.log(progress);
+        this.ui.progress.html(value);
+        this.ui.progress.attr("value", parseInt(progress));
     },
 
     onUploadDone: function(response) {
+        this.ui.progress.removeAttr("value");
         this.onClearClicked();
     },
 
     onError: function(error) {
         if (error.status) console.error(error.status);
         console.error(error.message);
+        this.ui.progress.removeAttr("value");
     },
 
     onDragover: function() {

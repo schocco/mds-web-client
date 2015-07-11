@@ -54,6 +54,15 @@ module.exports = Marionette.LayoutView.extend({
             var result = JSON.parse(response);
             this.pollForResult(result.task_id);
         }, this));
+        uploadView.on("error", _.bind(function(error) {
+            var result = JSON.parse(error.message);
+            var msg = new MessageView({
+                el: "#uploaderror",
+                type: "error",
+                message: result.error
+            });
+            msg.show();
+        }, this));
         this.upload.show(uploadView);
     },
 
