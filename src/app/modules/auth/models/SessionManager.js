@@ -102,7 +102,7 @@ module.exports = Marionette.Object.extend({
         logout: function () {
             var uri = this.urlRoot + "logout/";
             var that = this;
-            $.getJSON(uri).done(
+            $.post(uri).done(
                 function (data) {
                     that.onLogoutSuccess(data);
                     console.log("logged out");
