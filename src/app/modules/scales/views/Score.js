@@ -6,13 +6,14 @@ var UDHModel = require('../models/UDHModel');
 var UXCModel = require('../models/UXCModel');
 var $ = require('jquery');
 var Chart = require('chart.js');
+var Message = require('commons/views/Message');
 
 /**
  * Scoring view for either UDH or UXC.
  * Renders the appropriate rating table in a region and draws a chart representation of the score.
  */
 module.exports = Marionette.LayoutView.extend({
-    profileViewOptions: ['type', 'editable', 'score'],
+    viewOptions: ['type', 'editable', 'saveable', 'score'],
 
     regions: {
         scoringTable: '[data-region=scoringTable]'
@@ -34,8 +35,16 @@ module.exports = Marionette.LayoutView.extend({
 
     template: tpl,
 
+    /**
+     *
+     * @param options the view's options
+     * @param options.type type of the score, either "udh" or "uxc"
+     * @param options.editable if the values may be changed, false results in a static readonly table
+     * @param options.saveable if the score can be saved on the server
+     * @param options.score the score object to be displayed (either UDH or UXC model)
+     */
     initialize: function (options) {
-        this.mergeOptions(options, this.profileViewOptions);
+        this.mergeOptions(options, this.viewOptions);
         this.model = this.getModel();
         Marionette.bindEntityEvents(this, this.model, this.modelEvents);
     },
@@ -55,6 +64,7 @@ module.exports = Marionette.LayoutView.extend({
     templateHelpers: function () {
         return {
             editable: this.editable,
+            saveable: this.saveable,
             type: this.type,
             name: this.model.toString()
         };
@@ -100,7 +110,22 @@ module.exports = Marionette.LayoutView.extend({
      *
      */
     onScoreSaveClicked: function () {
-
+        this.readFormValues();
+        this.model.save({}, {
+            success: _.bind(function(response) {
+                this.model = response;
+                this.render();
+                this.onScoreUpdate();
+            }, this),
+            error: function(response) {
+                var msg = new Message({
+                    type: "error",
+                    message: "score could not be saved",
+                    timeout: 5000
+                });
+                msg.show();
+            }
+        });
     },
 
 

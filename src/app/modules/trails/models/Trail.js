@@ -12,7 +12,11 @@ module.exports = BaseModel.extend({
 	 * @return {object} dictionary with rating information or null if none set
 	 */
 	getRating: function() {
-		return this.get("udh_rating") || this.get("uxc_rating") || null;
+		var rating = this.get("udh_rating") || this.get("uxc_rating") || null;
+		if(rating !== null) {
+			rating.trail = this.url();
+		}
+		return rating;
 	},
 
 	getShortType: function() {

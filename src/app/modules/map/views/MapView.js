@@ -11,7 +11,7 @@ var IconBuilder = require('../icons/IconBuilder');
  */
 module.exports = Marionette.ItemView.extend({
     template: tpl,
-    profileViewOptions: ['zoom', 'center'],
+    viewOptions: ['zoom', 'center'],
     map: null,
     vectorSource: new ol.source.Vector({features: []}),
     vectorLayer: null,

@@ -5,6 +5,7 @@ var MapView = require('map/views/MapView');
 var HeightProfileView = require('./TrailHeightProfile');
 var UXCModel = require('scales/models/UXCModel');
 var UDHModel = require('scales/models/UDHModel');
+var Radio = require('backbone.radio');
 
 var User = require('auth/models/User');
 var UserWidget = require('auth/views/UserWidget');
@@ -33,6 +34,8 @@ module.exports = Marionette.LayoutView.extend({
         this.listenTo(this.model, "change", this.render);
     },
 
+    sessionChannel: Radio.channel("session"),
+
     /**
      * Triggers the rendering of all subviews.
      * Wait until the view has been rendered before inserting subviews into dom nodes.
@@ -43,6 +46,7 @@ module.exports = Marionette.LayoutView.extend({
             var scoringView = new ScoreView({
                 type: this.typeMap[this.model.get("type")],
                 editable: this.isEditable(),
+                saveable: this.isEditable(),
                 score: this.getRatingDataFromTrail()
             });
             this.scoring.show(scoringView);
@@ -89,11 +93,25 @@ module.exports = Marionette.LayoutView.extend({
         return {};
     },
 
+    /**
+     * A trail and its associated rating are only editable when the user is the owner of the trail.
+     *
+     * @return {boolean} true when the user may edit the rating and the trail
+     */
     isEditable: function() {
-        //TODO: check permissions
-        return true;
+        var currentUser = this.sessionChannel.request("user:current");
+        if(currentUser && currentUser.isAuthenticated()) {
+            if(currentUser.url() == this.model.get("owner") || currentUser.isAdmin()) {
+                return true;
+            }
+        }
+        return false;
     },
 
+    /**
+     * Checks if the trail has been rated.
+     * @return {boolean} true when the trail has not been rated yet
+     */
     isUnrated: function() {
         return this.model.getRating() === null;
     }

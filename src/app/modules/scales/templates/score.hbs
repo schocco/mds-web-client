@@ -1,16 +1,18 @@
 <div class="row">
     <div class="col-12 col-tablet-7">
         <h2>{{#if editable }}Calculator - {{/if}}{{ name }}</h2>
-
         {{#if editable }}
+            <p id="scoreError"></p>
             <form id="calculateScoreForm">
         {{/if}}
         <div data-region="scoringTable"></div>
         {{#if editable }}
             </form>
-            <a href="#" id="updateBtn" class="button right">update score</a>
+            <a href="#" id="updateBtn" class="button right"><i class="fa fa-refresh"></i> calculate score</a>
             {{#if saveable }}
-                <a href="" id="saveBtn" class="button right">save score</a>
+                <a href="" id="saveBtn" class="button right">
+                    <i class="fa fa-save"></i>
+                    {{#if id }} update {{else }} save {{/if}}</a>
             {{/if}}
         {{/if}}
     </div>

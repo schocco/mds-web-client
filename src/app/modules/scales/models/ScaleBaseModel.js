@@ -19,13 +19,11 @@ module.exports = BaseModel.extend({
 		var jqxhr = $.post(uri, this.attributes,
 			function(data) {
 				that.set("score", data);
-				console.log("Updated score for " + that);
 				that.trigger("update:score");
 			})
 			.fail(function(data) {
-				console.log("updating score for " + that + "failed");
+				console.error("updating score for " + that + "failed");
 				that.trigger("update:score:failed", data);
-				console.log(data);
 			});
 	},
 
@@ -51,6 +49,7 @@ module.exports = BaseModel.extend({
      */
     setTrailValues: function(trail) {
         if(trail instanceof TrailModel) {
+			this.set("trail", trail.url());
             _.forEach(this.trailFields, function(trailField,scaleField){
                 this.set(scaleField, trail.get(trailField));
             }, this);
