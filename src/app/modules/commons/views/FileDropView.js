@@ -48,7 +48,7 @@ module.exports = Marionette.ItemView.extend({
     initialize: function (options) {
         this.mergeOptions(options, ['url', 'name', 'fileFilter', 'single']);
         this.uploaderOptions = {
-            el: '#dropzone',
+            el: '.dropzone',
             url: this.url
         };
         _.merge(this.uploaderOptions, {name: this.name});
