@@ -19,6 +19,22 @@ module.exports = BaseModel.extend({
     isAuthenticated: function () {
         var un = this.get("username");
         return !(_.isEmpty(un) || un == "anonymous");
+    },
+
+    /**
+     * See https://docs.djangoproject.com/en/1.8/ref/contrib/auth/#django.contrib.auth.models.User.is_staff
+     * @return {*|boolean}
+     */
+    isStaff: function() {
+        return this.get("is_staff") || false;
+    },
+
+    /**
+     * See https://docs.djangoproject.com/en/1.8/ref/contrib/auth/#django.contrib.auth.models.User.is_superuser
+     * @return {*|boolean}
+     */
+    isAdmin: function () {
+        return this.get("is_admin") || false;
     }
 
 });

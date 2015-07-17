@@ -15,7 +15,7 @@ var MscaleModule = Marionette.Module.extend({
 
   onStop: function(options) {
     console.log("mscale module stopped");
-  },
+  }
 });
 
 MscaleModule.controller = Controller;

@@ -5,6 +5,7 @@ var FileDropView = require('commons/views/FileDropView');
 var MessageView = require('commons/views/Message');
 var Trail = require('trails/models/Trail');
 var $ = require('jquery');
+var _ = require('lodash');
 
 /**
  * The main upload view.
@@ -52,7 +53,7 @@ module.exports = Marionette.LayoutView.extend({
             });
             this.processingMsg.show();
             var result = JSON.parse(response);
-            this.pollForResult(result.task_id);
+            this.pollForResult(result.result_uri);
         }, this));
         uploadView.on("error", _.bind(function(error) {
             var result = JSON.parse(error.message);
@@ -75,23 +76,22 @@ module.exports = Marionette.LayoutView.extend({
 
     /**
      * Regularly polls the server for the geojson of the uploaded gpx file.
-     * @param task_id
+     * @param result_uri url where the result will be available on the server
      */
-    pollForResult: function(task_id){
-        var url = this.trail.urlRoot + "load-gpx/result/" + task_id + "/";
+    pollForResult: function(result_uri){
+        var url = result_uri;
         var that = this;
         var xhr = $.getJSON(url)
             .done(function(data, textStatus, xhr){
                 if(xhr.status == 204){
                     setTimeout(function() {
-                        that.pollForResult(task_id);
+                        that.pollForResult(result_uri);
                     }, 400);
                 } else if(xhr.status == 200){
                     that.processingMsg.close();
                     that.trail.set({waypoints: data});
                     that.upload.reset(); // hide upload button
-                    that.ui.info.show(300);
-                    that.showMap();
+                    that.ui.info.show(300, _.bind(that.showMap, that));
                 }
             })
             .fail(function(xhr){

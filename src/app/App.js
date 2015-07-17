@@ -3,6 +3,7 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
 var Marionette = require('backbone.marionette');
+var Radio = require('backbone.radio');
 
 // for the marionette inspector
 if (window.__agent) {
@@ -26,7 +27,10 @@ Marionette.Region.prototype.attachHtml = function (view) {
     this.$el.fadeIn(200);
 };
 
+// read CSRF value from cookie, and update it when it changes
+// django sets a new csrf after login
 Controller.setupCsrfHeader();
+Radio.channel("session").on("user:login:success", _.bind(Controller.setupCsrfHeader, Controller));
 
 var App = Marionette.Application.extend({
     initialize: function () {
