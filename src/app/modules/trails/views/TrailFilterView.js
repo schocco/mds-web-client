@@ -63,12 +63,17 @@ module.exports = Marionette.ItemView.extend({
      * the delay, the current search value is used to fetch the new collection.
      * Without the delay every key press would cause a request to the server.
      *
+     * Immediately performs a request when enter has been pressed.
+     *
      * @param e event
      */
     onSearchKeyevent: function(e) {
-        console.log(e.target.value);
         this.model.set("search", e.target.value, {silent:true});
-
+        // perform search when enter key pressed
+        if(e.keyCode == 13){
+            this.onApply();
+            return false;
+        }
         // cancel timer if another keypress occured within the delay
         clearTimeout(this.searchTimerId);
         //start a timer, if no more key events are fired within a certain delay, perform
