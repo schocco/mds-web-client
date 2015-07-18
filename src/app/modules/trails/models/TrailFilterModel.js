@@ -27,6 +27,8 @@ module.exports  = backbone.Model.extend({
     },
 
     /**
+     * Gets a dicitionary with all filters currently set.
+     * Note that this also includes the search field.
      * @return {{}} dictionary with filter keys and values
      */
     getFilterOptions: function() {
@@ -42,6 +44,9 @@ module.exports  = backbone.Model.extend({
             if(user.has("id")) {
                 filters.owner = user.get("id");
             }
+        }
+        if(this.get("search") !== null && this.get("search") !== "") {
+            filters.name__icontains = this.get("search");
         }
         return filters;
     },

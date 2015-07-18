@@ -16,6 +16,8 @@ module.exports = Marionette.ItemView.extend({
         "change": "render"
     },
 
+    searchTimerId: -1,
+
     sessionChannel: Radio.channel("session"),
 
     /**
@@ -51,6 +53,30 @@ module.exports = Marionette.ItemView.extend({
         "click @ui.reset": "reset"
     },
 
+    events : {
+        "keyup #searchInput" : "onSearchKeyevent"
+    },
+
+    /**
+     * Sets the current value on the model without firing a change event on the model.
+     * Triggers an apply with a delay of 1/2 second. If no key events are received during
+     * the delay, the current search value is used to fetch the new collection.
+     * Without the delay every key press would cause a request to the server.
+     *
+     * @param e event
+     */
+    onSearchKeyevent: function(e) {
+        console.log(e.target.value);
+        this.model.set("search", e.target.value, {silent:true});
+
+        // cancel timer if another keypress occured within the delay
+        clearTimeout(this.searchTimerId);
+        //start a timer, if no more key events are fired within a certain delay, perform
+        // a search, otherwise restart timer
+        this.searchTimerId = setTimeout(_.bind(function() {
+            this.onApply();
+        }, this), 500);
+    },
 
     onFilterXcToggle: function() {
         this.model.toggle("filter_xc");
@@ -80,6 +106,9 @@ module.exports = Marionette.ItemView.extend({
     },
 
     onApply: function() {
+        // clear the search timer when something else triggered an apply before the
+        // timer has fired
+        clearTimeout(this.searchTimerId);
         this.collection.setFiltersAndSorting(this.model);
         this.collection.fetch();
     },

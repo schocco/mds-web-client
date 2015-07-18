@@ -118,12 +118,15 @@ module.exports = Backbone.Collection.extend({
 	/**
 	 * Provide filter options as a dictionary. {"name" : "abc"} becomes
 	 * &name=abc.
+     * Searches on text fields can be performed by adding a specific comparator to the key.
+     * E.g. {"name__icontains": "a"} performs a case insensitive search for all objects containing the char a in the name.
+     *
      * This resets the offset to 0 as previously set offsets might be out of range after filtering.
-	 * @param filter
+	 *
+     * @param filter
 	 * @returns {object}
 	 */
 	setFilterOptions : function(filter) {
-		// TODO: allow other comparators than =
         // reset the offset to 0, as filtering might reduce the number of pages
         this.settings.offset = 0;
 		this.settings.filterOptions = filter;
