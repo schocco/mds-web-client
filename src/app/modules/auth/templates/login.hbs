@@ -1,6 +1,17 @@
 <div class="container">
 <div class="container-full">
-    <h1>Login</h1>
+
+    <h1>{{#authenticated }}
+        Change user
+    {{else }}
+        Login
+    {{/authenticated}}
+    </h1>
+    <p>
+        {{#authenticated }}
+            You are already logged in.
+        {{/authenticated}}
+    </p>
 </div>
 <div class="row">
     <div class="col-12 col-tablet-6">

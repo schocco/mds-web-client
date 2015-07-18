@@ -2,12 +2,23 @@ var Marionette = require('backbone.marionette');
 var LoginView = require('./views/SocialLoginView');
 var rootView = require('../../RootView');
 var Backends = require('./models/SocialAuthBackends');
+var ProfileView = require('./views/ProfileView');
+var Radio = require('backbone.radio');
+var User = require('auth/models/User');
 
 module.exports = {
 
-    profile: function() {
-    	var view = new LoginView();
+    profile: function(userId) {
+        var user = new User({id:userId});
+    	var view = new ProfileView({model: user});
+        user.fetch();
     	rootView.showChildView('body', view);
+    },
+
+    profileCurrent: function() {
+        var user = Radio.channel("session").request("user:current");
+        var view = new ProfileView({model: user});
+        rootView.showChildView('body', view);
     },
 
     login: function(args) {

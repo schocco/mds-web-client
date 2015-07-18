@@ -33,6 +33,8 @@ module.exports = Marionette.CompositeView.extend({
 
     initialize: function (options) {
         this.mergeOptions(options, this.viewOptions);
+        this.sessionChannel.on("user:login:success", _.bind(this.render));
+        this.sessionChannel.on("user:logout:success", _.bind(this.render));
     },
 
     /**
@@ -67,6 +69,7 @@ module.exports = Marionette.CompositeView.extend({
 
     /** show global success message and redirect to next view if a redirect is specified. */
     onLoginSuccess: function() {
+        console.log("login message");
         var msg = new Message({el: "#formMessage", type:"info",wrapper:"p",message:"You are now logged in."});
         msg.show();
         if(this.next !== undefined) {
