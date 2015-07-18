@@ -1,0 +1,26 @@
+<div class="filtering row" style="background-color: #eee; padding-bottom: 0.5em; margin-bottom: 1rem;">
+    <div class="col-3">
+        <h5>Search</h5>
+        <input type="search" class="width-100" vlaue="{{ search }}">
+    </div>
+    <div class="col-3">
+        <h5>Filters</h5>
+        <a id="filter_dh" href="?type=downhill" class="label {{#unless filter_dh }}in{{/unless}}active">downhill</a>
+        <a id="filter_xc" href="?type=xc" class="label {{#unless filter_xc }}in{{/unless}}active">XC</a>
+        {{#authenticated }}
+            <a id="filter_mine" href="?owner=self" class="label {{#unless filter_mine }}in{{/unless}}active">my uploads</a>
+        {{/authenticated}}
+    </div>
+    <div class="col-4">
+        <h5>Sorting</h5>
+        <a id="sort_name" href="?ordering=name" class="label {{#unless sort_name }}in{{/unless}}active">name</a>
+        <a id="sort_length" href="?ordering=length" class="label {{#unless sort_length }}in{{/unless}}active">trail length</a>
+        <a id="sort_asc" href="?ordering=asc" class="label {{#unless sort_asc }}in{{/unless}}active">a-Z</a>
+        <a id="sort_dsc" href="?ordering=desc" class="label {{#unless sort_desc }}in{{/unless}}active">Z-a</a>
+    </div>
+    <div class="col-2 text-right">
+        <h5>Apply/ Reset</h5>
+        <a id="applyBtn" href="#apply" title="apply" class="label green bottom"><i class="fa fa-refresh"></i></a>
+        <a id="resetBtn" href="#apply" title="reset" class="label red"><i class="fa fa-remove"></i></a>
+    </div>
+</div>
