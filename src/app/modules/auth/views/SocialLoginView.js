@@ -13,6 +13,11 @@ module.exports = Marionette.CompositeView.extend({
     viewOptions: ['next'],
     childView: ChildView,
     childViewContainer: '#socialBackends',
+    childViewOptions: function() {
+        return {
+            next: encodeURIComponent(this.next)
+        };
+    },
 
     ui: {
         loginButton: '#loginBtn',
@@ -31,8 +36,18 @@ module.exports = Marionette.CompositeView.extend({
     sessionChannel: Radio.channel('session'),
     notificationChannel: Radio.channel('notification'),
 
+    /**
+     *
+     * @param options.next name of the view to visit after login (a hash will be prepended if it is not present)
+     */
     initialize: function (options) {
         this.mergeOptions(options, this.viewOptions);
+        if(this.next && this.next.indexOf("#") !== 0) {
+            this.next = "#" + this.next;
+        }
+        if(this.next === undefined) {
+            this.next = "#profile/me";
+        }
         this.sessionChannel.on("user:login:success", _.bind(this.render));
         this.sessionChannel.on("user:logout:success", _.bind(this.render));
     },
@@ -69,17 +84,10 @@ module.exports = Marionette.CompositeView.extend({
 
     /** show global success message and redirect to next view if a redirect is specified. */
     onLoginSuccess: function() {
-        console.log("login message");
         var msg = new Message({el: "#formMessage", type:"info",wrapper:"p",message:"You are now logged in."});
         msg.show();
         if(this.next !== undefined) {
-            this.navigate("#" + this.next);
-        }
-    },
-
-    childViewOptions: {
-        'next': function () {
-            return this.next;
+            this.navigate(this.next);
         }
     }
 

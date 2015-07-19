@@ -24,8 +24,12 @@ module.exports = {
     login: function(args) {
         var params = this.parseQueryString(args);
         var backends = new Backends();
-        var view = new LoginView({collection: backends, next: params.next});
         backends.fetch();
+        var viewOptions = {collection: backends};
+        if(params.next !== undefined) {
+            viewOptions.next = params.next;
+        }
+        var view = new LoginView(viewOptions);
         rootView.showChildView('body', view);
     },
 

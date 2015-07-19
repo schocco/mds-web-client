@@ -14,11 +14,15 @@ module.exports = Marionette.ItemView.extend({
       google: "google-plus"
     },
 
+    initialize: function(options) {
+        this.mergeOptions(options, ['next']);
+    },
+
     templateHelpers: function () {
         // using a function instead a dict here allows access to the
         // model before serialization
         return {
-            'loginUri': this.model.getLoginUrl(),
+            'loginUri': this.model.getLoginUrl() + "?next=%2F" + encodeURIComponent(this.next), //%2F = /
             'provider': this.model.getProvider(),
             'iconClassStr': this.getIconClassStr()
         };
