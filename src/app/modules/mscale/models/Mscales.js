@@ -14,7 +14,7 @@ module.exports = BaseCollection.extend({
         this.on("sync", _.bind(function() {
             // cache data on first reset
             MscaleCache.collection = this;
-        }, this))
+        }, this));
     },
 
 	isCached: function() {

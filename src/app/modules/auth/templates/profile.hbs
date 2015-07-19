@@ -2,11 +2,24 @@
     <div class="container-full">
 
         <h1>{{ username }} ({{ first_name }} {{ last_name }})</h1>
-        <p>{{ profile.tagline }}</p>
-        <p> uploaded {{ profile.num_uploaded_trails }} trails, rated {{ profile.num_rated_trails }} trails</p>
-        <p>
-            {{# if profile.facebook }}<a href="{{ profile.facebook }}"><i class="fa fa-facebook"></i> view facebook profile</a><br>{{/if}}
-            {{# if profile.gplus }}<a href="{{ profile.gplus }}"><i class="fa fa-google-plus"></i> view google plus profile</a>{{/if}}
-        </p>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            {{#if profile.picture }}
+                <img src="{{ picture }}">
+            {{ else }}
+                <i class="fa fa-user-secret fa-4x"> </i>
+                <p id ="uploadinfo"></p><p id="uploaderror"></p>
+            {{/if}}
+            <div data-region="upload"></div>
+        </div>
+        <div class="col-10">
+            <p>{{ profile.tagline }}</p>
+            <p> uploaded {{ profile.num_uploaded_trails }} trails, rated {{ profile.num_rated_trails }} trails</p>
+            <p>
+                {{# if profile.facebook }}<a href="{{ profile.facebook }}"><i class="fa fa-facebook"></i> view facebook profile</a><br>{{/if}}
+                {{# if profile.gplus }}<a href="{{ profile.gplus }}"><i class="fa fa-google-plus"></i> view google plus profile</a>{{/if}}
+            </p>
+        </div>
     </div>
 </div>

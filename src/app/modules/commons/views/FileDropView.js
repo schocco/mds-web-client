@@ -24,7 +24,8 @@ module.exports = Marionette.ItemView.extend({
 
     templateHelpers: function() {
         return {
-            single: this.single
+            single: this.single,
+            width: this.width
         };
     },
 
@@ -34,7 +35,8 @@ module.exports = Marionette.ItemView.extend({
     },
 
     defaults: {
-        single: false
+        single: false,
+        width: 80
     },
 
     /**
@@ -44,9 +46,10 @@ module.exports = Marionette.ItemView.extend({
      * @param options.name name of the file in the post request
      * @param options.fileFilter function for filtering files (not yet implemented)
      * @param options.single set this to true to allow only a single file to be uploaded at once (default is false)
+     * @param options.width width of the upload area in %, default is 80 (allowed are 60,80,100)
      */
     initialize: function (options) {
-        this.mergeOptions(options, ['url', 'name', 'fileFilter', 'single']);
+        this.mergeOptions(options, ['url', 'name', 'fileFilter', 'single', 'width']);
         this.uploaderOptions = {
             el: '.dropzone',
             url: this.url
