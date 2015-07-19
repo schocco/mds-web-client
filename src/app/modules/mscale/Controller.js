@@ -14,8 +14,13 @@ module.exports = {
 
     mscale: function() {
     	var mscales = new MscaleCollection();
+        if(mscales.isCached()) {
+            mscales = mscales.getCached();
+        } else {
+            mscales.fetch();
+        }
     	var view = new MscaleView({collection: mscales});
-    	mscales.fetch();
+
     	rootView.showChildView('body', view);
     }
     
