@@ -14,7 +14,7 @@
                 </span>
             {{/if}}
             <h4>{{ first_name }} {{last_name }}</h4>
-            Tagline to describe user<br>
+            {{ profile.tagline }}<br>
             Trails uploaded: {{ profile.num_uploaded_trails }}<br>
             Trails rated: {{ profile.num_rated_trails }}<br>
             <a href="#profile/{{ username }}" class="button">View profile</a>

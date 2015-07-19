@@ -14,6 +14,7 @@ module.exports = Marionette.LayoutView.extend({
 
     initialize: function(options) {
        Radio.channel("session").on("user:login:success", _.bind(this.updateCurrentUser, this));
+       this.listenTo(this.model, "change", this.render);
     },
 
     updateCurrentUser: function() {

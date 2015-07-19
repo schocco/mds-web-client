@@ -49,6 +49,7 @@ module.exports = Marionette.ItemView.extend({
      * @param options.width width of the upload area in %, default is 80 (allowed are 60,80,100)
      */
     initialize: function (options) {
+        this.mergeOptions(this.defaults, ['single', 'width']);
         this.mergeOptions(options, ['url', 'name', 'fileFilter', 'single', 'width']);
         this.uploaderOptions = {
             el: '.dropzone',
