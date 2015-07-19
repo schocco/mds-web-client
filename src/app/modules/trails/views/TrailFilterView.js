@@ -37,6 +37,7 @@ module.exports = Marionette.ItemView.extend({
         "sort_dsc": "#sort_dsc",
         "sort_name": "#sort_name",
         "sort_length": "#sort_length",
+        "sort_created": "#sort_created",
         "apply": "#applyBtn",
         "reset": "#resetBtn"
     },
@@ -47,8 +48,9 @@ module.exports = Marionette.ItemView.extend({
         "click @ui.filter_mine": "filter:mine:toggle",
         "click @ui.sort_asc": "sort:order:toggle",
         "click @ui.sort_dsc": "sort:order:toggle",
-        "click @ui.sort_name": "sort:field:toggle",
-        "click @ui.sort_length": "sort:field:toggle",
+        "click @ui.sort_name": "sort:name:toggle",
+        "click @ui.sort_length": "sort:length:toggle",
+        "click @ui.sort_created": "sort:created:toggle",
         "click @ui.apply": "apply",
         "click @ui.reset": "reset"
     },
@@ -104,10 +106,29 @@ module.exports = Marionette.ItemView.extend({
         this.onApply();
     },
 
-    onSortFieldToggle: function() {
-        this.model.toggle("sort_name");
-        this.model.toggle("sort_length");
+    onSortNameToggle: function() {
+        this.unselectAllSortTags();
+        this.model.set("sort_name", true);
         this.onApply();
+
+    },
+
+    onSortLengthToggle: function() {
+        this.unselectAllSortTags();
+        this.model.set("sort_length", true);
+        this.onApply();
+    },
+
+    onSortCreatedToggle: function() {
+        this.unselectAllSortTags();
+        this.model.set("sort_created", true);
+        this.onApply();
+    },
+
+    unselectAllSortTags: function() {
+        this.model.set("sort_created", false, {silent: true});
+        this.model.set("sort_length", false, {silent: true});
+        this.model.set("sort_name", false, {silent: true});
     },
 
     onApply: function() {

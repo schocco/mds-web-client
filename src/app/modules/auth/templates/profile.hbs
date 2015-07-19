@@ -3,10 +3,10 @@
 
         <h1>{{ username }} ({{ first_name }} {{ last_name }})</h1>
         <p>{{ profile.tagline }}</p>
-        <p> has uploaded {{ profile.num_uploaded_trails }} trails and rated {{ profile.num_rated_trails }} trails.</p>
-        <h2>Social Media</h2>
-        <p>Facebook: {{ profile.facebook }}<br>
-            Google Plus: {{ profile.gplus }}
+        <p> uploaded {{ profile.num_uploaded_trails }} trails, rated {{ profile.num_rated_trails }} trails</p>
+        <p>
+            {{# if profile.facebook }}<a href="{{ profile.facebook }}"><i class="fa fa-facebook"></i> view facebook profile</a><br>{{/if}}
+            {{# if profile.gplus }}<a href="{{ profile.gplus }}"><i class="fa fa-google-plus"></i> view google plus profile</a>{{/if}}
         </p>
     </div>
 </div>

@@ -7,10 +7,11 @@ module.exports  = backbone.Model.extend({
        filter_dh: false,
        filter_xc: false,
        filter_mine: false,
-       sort_name: true,
+       sort_name: false,
        sort_length: false,
-       sort_asc: true,
-       sort_desc: false,
+       sort_created: true,
+       sort_asc: false,
+       sort_desc: true,
        search: null
    },
 
@@ -58,8 +59,10 @@ module.exports  = backbone.Model.extend({
         var sorting;
         if(this.get("sort_name")) {
             return "name";
-        } else {
+        } else if(this.get("sort_length")) {
             return "length";
+        } else if(this.get("sort_created")) {
+            return "created";
         }
     },
 
