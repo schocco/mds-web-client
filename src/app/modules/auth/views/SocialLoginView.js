@@ -15,7 +15,7 @@ module.exports = Marionette.CompositeView.extend({
     childViewContainer: '#socialBackends',
     childViewOptions: function() {
         return {
-            next: encodeURIComponent(this.next)
+            next: this.next
         };
     },
 

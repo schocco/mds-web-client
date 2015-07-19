@@ -22,7 +22,7 @@ module.exports = Marionette.ItemView.extend({
         // using a function instead a dict here allows access to the
         // model before serialization
         return {
-            'loginUri': this.model.getLoginUrl() + "?next=%2F" + encodeURIComponent(this.next), //%2F = /
+            'loginUri': this.model.getLoginUrl() + "?next=" + encodeURIComponent("/" + this.next),
             'provider': this.model.getProvider(),
             'iconClassStr': this.getIconClassStr()
         };
