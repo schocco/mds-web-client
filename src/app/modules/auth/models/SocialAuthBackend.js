@@ -1,7 +1,8 @@
 var BaseModel = require('commons/models/BaseModel');
 
 var providerMap = {
-    "google-oauth2": "google"
+    "google-oauth2": "google",
+    "vk-oauth2": "vk"
 };
 
 /**
