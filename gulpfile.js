@@ -47,7 +47,7 @@ gulp.task('styles', function () {
     return gulp.src(src + 'less/style.less')
         .pipe(less({
             paths: [src + 'less', src + 'less/base', src + 'less/base/animations']
-        }))
+        })).pipe(isProduction ? $.cssmin() : $.util.noop())
         .pipe($.autoprefixer({browsers: autoprefixerBrowsers}))
         .pipe(gulp.dest(dist + 'css/'))
         .pipe($.size({title: 'css'}))
