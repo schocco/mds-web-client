@@ -5,6 +5,7 @@ var FileDropView = require('commons/views/FileDropView');
 var MessageView = require('commons/views/Message');
 var Trail = require('trails/models/Trail');
 var $ = require('jquery');
+var cookie = require('jquery.cookie');
 var _ = require('lodash');
 
 /**
@@ -39,10 +40,12 @@ module.exports = Marionette.LayoutView.extend({
      * Display subviews.
      */
     onShow: function() {
+        var token = $.cookie('csrftoken');
         var uploadView = new FileDropView({
             url: "/api/v1/trails/load-gpx/",
             name: "gpx",
-            single: true
+            single: true,
+            headers: {"x-csrftoken": token}
         });
         uploadView.on("upload:done", _.bind(function(response) {
             this.processingMsg = new MessageView({
@@ -56,7 +59,7 @@ module.exports = Marionette.LayoutView.extend({
             this.pollForResult(result.result_uri);
         }, this));
         uploadView.on("error", _.bind(function(error) {
-            var result = JSON.parse(error.message);
+            var result = JSON.parse(error.message || {error: "Fileupload failed." });
             var msg = new MessageView({
                 el: "#uploaderror",
                 type: "error",

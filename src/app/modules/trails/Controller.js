@@ -29,9 +29,9 @@ module.exports = Marionette.Controller.extend({
     },
 
     /** lets users upload gpx files. */
-    trailUpload: function() {
+    trailUpload: function(a) {
+        var trail = new TrailModel();
         require(['./views/TrailUpload'], function(TrailUploadView) {
-            var trail = new TrailModel();
             var view = new TrailUploadView();
             rootView.showChildView('body', view);
         });

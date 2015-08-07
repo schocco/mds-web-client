@@ -47,13 +47,15 @@ module.exports = Marionette.ItemView.extend({
      * @param options.fileFilter function for filtering files (not yet implemented)
      * @param options.single set this to true to allow only a single file to be uploaded at once (default is false)
      * @param options.width width of the upload area in %, default is 80 (allowed are 60,80,100)
+     * @param options.headers dictionary of headers to be included in the request
      */
     initialize: function (options) {
         this.mergeOptions(this.defaults, ['single', 'width']);
-        this.mergeOptions(options, ['url', 'name', 'fileFilter', 'single', 'width']);
+        this.mergeOptions(options, ['url', 'name', 'fileFilter', 'single', 'width', 'headers']);
         this.uploaderOptions = {
             el: '.dropzone',
-            url: this.url
+            url: this.url,
+            headers: this.headers
         };
         _.merge(this.uploaderOptions, {name: this.name});
     },
@@ -122,7 +124,6 @@ module.exports = Marionette.ItemView.extend({
 
     onError: function(error) {
         if (error.status) console.error(error.status);
-        console.error(error.message);
         this.ui.progress.removeAttr("value");
     },
 

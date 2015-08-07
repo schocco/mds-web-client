@@ -62,7 +62,7 @@ module.exports.production = {
         loaders : [
             { test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader' },
             { test: /\.js?$/, loader: 'uglify-loader' },
-            { test: /\.css$/,    loader: 'style-loader!css-loader' },
+            { test: /\.css$/,    loader: 'style-loader!css-loader?minimize!' },
             { test: /\.hbs$/,    loader: 'handlebars-loader?helperDirs[]=' + __dirname + '/src/app/modules/commons/templateHelpers' },
             // loaders for webfonts
             { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },

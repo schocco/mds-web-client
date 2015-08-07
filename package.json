@@ -58,7 +58,7 @@
     "backbone.radio": "^1.0.0",
     "chart.js": "^1.0.2",
     "font-awesome-webpack": "^0.0.3",
-    "html5-uploader": "0.0.3",
+    "html5-uploader": "schocco/html5-uploader",
     "jquery": "^1.11.3",
     "jquery.cookie": "^1.4.1",
     "lodash": "^3.5.0",
